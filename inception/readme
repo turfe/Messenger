@@ -1,0 +1,7 @@
+first version fon. dirty-code.
+RUN:
+_______________________________
+g++ -c paint.cpp
+g++ paint.o -o paint -lsfml-graphics -lsfml-window -lsfml-system
+./paint
+_______________________________
