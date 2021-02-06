@@ -1,7 +1,7 @@
-first version of background image.
+first version of background image and sound notification. If you want to hear ringthones, click any button.
 RUN:
 _______________________________
 g++ -c paint.cpp
-g++ paint.o -o paint -lsfml-graphics -lsfml-window -lsfml-system
+g++ paint.o -o paint -lsfml-graphics -lsfml-window -lsfml-system -lsfmsl-audio
 ./paint
 _______________________________
