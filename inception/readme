@@ -1,4 +1,4 @@
-first version fon. dirty-code.
+first version of background image.
 RUN:
 _______________________________
 g++ -c paint.cpp
