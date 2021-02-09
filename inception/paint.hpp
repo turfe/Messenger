@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#define path_to_melody_one "/home/ravil/chat/data/sounds/sp-cheers.wav"
+#define path_to_melody_one "/home/ravil/chat/data/sounds/sqwoz_woman.wav"
 #define path_to_fon "/home/ravil/chat/data/image/fon_memecria.jpg"
 #define path_to_sound "/home/ravil/chat/data/image/icon_sound.jpg"
 
