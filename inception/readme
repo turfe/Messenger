@@ -2,6 +2,6 @@ first version of background image and sound notification. If you want to hear ri
 RUN:
 _______________________________
 g++ -c paint.cpp
-g++ paint.o -o paint -lsfml-graphics -lsfml-window -lsfml-system -lsfmsl-audio
+g++ paint.o -o paint -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 ./paint
 _______________________________
