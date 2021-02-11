@@ -6,7 +6,7 @@
 //#include <SFML/Mouse.hpp>
 
 #define path_to_melody_one "/home/ravil/chat/data/sounds/sqwoz_woman.wav"
-#define path_to_fon "/home/ravil/chat/data/image/fon_memecria.jpg"
+#define path_to_fon "/home/ravil/chat/data/image/fon_memecria3.jpg"
 #define path_to_sound "/home/ravil/chat/data/image/icon_sound.jpg"
 
 

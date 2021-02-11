@@ -13,7 +13,7 @@ int main() {
     sprite_fon.setPosition(0, 0);
     */
     //sf::RenderWindow window = screen::Background::create(350, 350); 
-    screen::Background window(1024, 640);
+    screen::Background window(1240, 800);
     while ( window.is_open() ) {
         /*sf::Event event;
         while ( window.pollEvent(event) ) {
@@ -24,7 +24,7 @@ int main() {
         window.handler_button();
         window.draw_on_window(sf::Color::Green);
         window.draw_on_window(path_to_fon);
-        window.draw_on_window(path_to_sound, 200, 200);
+        //window.draw_on_window(path_to_sound, 200, 200);
         //window.draw(sprite_fon);
         //window.draw(shape);
         window.display();
