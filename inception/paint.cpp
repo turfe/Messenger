@@ -23,7 +23,7 @@ int main() {
         */
         window.handler_button();
         window.draw_on_window(sf::Color::Green);
-        window.draw_on_window(path_to_fon);
+        window.draw_on_window(path_to_background);
         //window.draw_on_window(path_to_sound, 200, 200);
         //window.draw(sprite_fon);
         //window.draw(shape);
