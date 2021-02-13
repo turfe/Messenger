@@ -1,5 +1,6 @@
 first version of background image and sound notification. If you want to hear ringthones, click any button. Add handler_mouse and first 
 version button(CLICKBAIT(LOL))
+click on personal settings or Sign for any Size Window, code can follow it.
 RUN:
 _______________________________
 g++ -c paint.cpp
