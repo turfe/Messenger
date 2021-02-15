@@ -3,7 +3,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include <list>
+#include <vector>
+#include <iterator>
 
 #define path_to_melody_one "/home/ravil/chat/data/sounds/sp-cheers.wav"
 #define path_to_background "/home/ravil/chat/data/image/fon_memecria3.jpg"
@@ -35,9 +36,9 @@ namespace screen {
             Icons(std::string path, Point _vertex, double _height, double _width) : path_to_image(path), vertex(_vertex), height(_height), width(_width) {}
     };
 
-        class Button {
+    class Button {
         private:
-            std::list<Icons> Buttons;
+            std::vector<Icons> Buttons;
         public:
             Button(Icons _icon);
             Button();
@@ -147,6 +148,7 @@ namespace screen {
     void Background::enter_button(sf::Vector2i position) {
         float X = position.x;
         float Y = position.y;
+        //add kx, ky in global variables
         float kx = pos.x / 1240.0;
         float ky = pos.y / 800.0;
         //std::cout << kx << " = kx\n" << ky << " = ky\n";
