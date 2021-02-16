@@ -22,48 +22,48 @@ sf::Vector2u pos;
 #include "global_variables.hpp"
 #include "personal_settings.hpp"
 
-namespace screen {
-    class Point {
-        private:
-            double x, y;
-        public:
-            Point(double _x, double _y) : x(_x), y(_y) {}
-            Point() : x(0), y(0) {}
-    };
+namespace screen {                                                                              // Everything required for screen operation is stored here
+    class Point {                                                                               // Class for storing information about a single 2D point
+        private:                                                                                //
+            double x, y;                                                                        // Coordinates
+        public:                                                                                 //
+            Point(double _x, double _y) : x(_x), y(_y) {}                                       // Constructor
+            Point() : x(0), y(0) {}                                                             // Another constructor
+    };                                                                                          //
     
-    class Icons {
-        private:
-            std::string path_to_image;
-            double height, width;
-            Point vertex;
-        public:
-            Icons(std::string path);
-            Icons(std::string path, Point _vertex);
+    class Icons {                                                                               // Everything required for operations with images is stored here
+        private:                                                                                //
+            std::string path_to_image;                                                          // Path to the file containing image
+            double height, width;                                                               // Image's height and width in pixels
+            Point vertex;                                                                       // This point represents the upper left corner of the image
+        public:                                                                                 //
+            Icons(std::string path);                                                            // 3 different constructors
+            Icons(std::string path, Point _vertex);                                             //
             Icons(std::string path, Point _vertex, double _height, double _width) : path_to_image(path), vertex(_vertex), height(_height), width(_width) {}
     };
 
-    class Button {
-        private:
-            std::vector<Icons> Buttons;
-        public:
-            Button(Icons _icon);
-            Button();
-    };
+    class Button {                                                                              // Everything required for operations with buttons is stored here
+        private:                                                                                //
+            std::vector<Icons> Buttons;                                                         // Single vector contains information about all buttons
+        public:                                                                                 //
+            Button(Icons _icon);                                                                // 2 constructors
+            Button();                                                                           //
+    };                                                                                          //
 
-    class Background {
-        private:
-            sf::RenderWindow window;
-            void play_sound();
-            void my_clear();
-        public:
+    class Background {                                                                          // Class used for operations with background
+        private:                                                                                //
+            sf::RenderWindow window;                                                            // Reference: https://www.sfml-dev.org/documentation/2.5.1/classsf_1_1RenderWindow.php
+            void play_sound();                                                                  // Different functions used for interaction with the active window
+            void my_clear();                                                                    //
+        public:                                                                                 //
             Background(int height, int width) : window(sf::VideoMode(height, width), "MEMECRIA") {}
-            void draw_on_window(const char path_to_image[]);
-            void draw_on_window(const char path_to_image[], int x, int y);
-            void draw_on_window(sf::Color colour);
-            void handler_button();
-            bool is_open() const;
-            void display();
-            void enter_button(sf::Vector2i vec);
+            void draw_on_window(const char path_to_image[]);                                    //
+            void draw_on_window(const char path_to_image[], int x, int y);                      //
+            void draw_on_window(sf::Color colour);                                              //
+            void handler_button();                                                              //
+            bool is_open() const;                                                               //
+            void display();                                                                     //
+            void enter_button(sf::Vector2i vec);                                                //
     };
 
     Icons::Icons(std::string path, Point _vertex) {
