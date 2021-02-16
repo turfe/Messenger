@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 #include <iostream>
@@ -5,6 +6,7 @@
 #include <SFML/Audio.hpp>
 #include <vector>
 #include <iterator>
+
 
 #define path_to_melody_one "data/sounds/sp-cheers.wav"
 #define path_to_background "data/image/fon_memecria3.jpg"
@@ -15,6 +17,10 @@
 sf::Sound ringthone_one;
 sf::SoundBuffer melody_one;
 sf::Vector2u pos;
+*/
+
+#include "global_variables.hpp"
+#include "personal_settings.hpp"
 
 namespace screen {
     class Point {
@@ -48,6 +54,7 @@ namespace screen {
         private:
             sf::RenderWindow window;
             void play_sound();
+            void my_clear();
         public:
             Background(int height, int width) : window(sf::VideoMode(height, width), "MEMECRIA") {}
             void draw_on_window(const char path_to_image[]);
@@ -105,6 +112,12 @@ namespace screen {
         window.clear(colour);
     }
 
+    void Background::my_clear() {
+        window.clear();
+        window.close();
+        window.display();
+    }
+
     void Background::handler_button() {
         sf::Event event;
         while ( window.pollEvent(event) ) {
@@ -156,7 +169,9 @@ namespace screen {
             std::cout << "SIGN IN/SIGN UP\n";
         }
         else if ( (X > 340 * kx) & (Y > 210 * ky) & (X < 975 * kx) & (Y < 285 * ky) ) {
-            std::cout << "PERSONAL SETTINGS\n";
+            //std::cout << "PERSONAL SETTINGS\n";
+            window.clear();
+            personal_settings();
         }
         
     }
