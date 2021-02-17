@@ -19,16 +19,22 @@ sf::SoundBuffer melody_one;
 sf::Vector2u pos;
 */
 
+#pragma once
 #include "global_variables.hpp"
-#include "personal_settings.hpp"
 
-namespace screen {                                                                              // Everything required for screen operation is stored here
+namespace screen {
+    class Background;
+    }
+
+
+namespace screen {       // Everything required for screen operation is stored here 
     class Point {                                                                               // Class for storing information about a single 2D point
-        private:                                                                                //
+        private:
             double x, y;                                                                        // Coordinates
-        public:                                                                                 //
+        public:    
             Point(double _x, double _y) : x(_x), y(_y) {}                                       // Constructor
             Point() : x(0), y(0) {}                                                             // Another constructor
+            sf::Vector2u getPoint();
     };                                                                                          //
     
     class Icons {                                                                               // Everything required for operations with images is stored here
@@ -40,6 +46,7 @@ namespace screen {                                                              
             Icons(std::string path);                                                            // 3 different constructors
             Icons(std::string path, Point _vertex);                                             //
             Icons(std::string path, Point _vertex, double _height, double _width) : path_to_image(path), vertex(_vertex), height(_height), width(_width) {}
+            void draw_object(screen::Background wind); //add func
     };
 
     class Button {                                                                              // Everything required for operations with buttons is stored here
@@ -48,15 +55,18 @@ namespace screen {                                                              
         public:                                                                                 //
             Button(Icons _icon);                                                                // 2 constructors
             Button();                                                                           //
+            void draw_objects(screen::Background wind); //add func
     };                                                                                          //
 
     class Background {                                                                          // Class used for operations with background
         private:                                                                                //
-            sf::RenderWindow window;                                                            // Reference: https://www.sfml-dev.org/documentation/2.5.1/classsf_1_1RenderWindow.php
+            //sf::RenderWindow window; WARNING                                                           // Reference: https://www.sfml-dev.org/documentation/2.5.1/classsf_1_1RenderWindow.php
             void play_sound();                                                                  // Different functions used for interaction with the active window
             void my_clear();                                                                    //
         public:                                                                                 //
+            sf::RenderWindow window;
             Background(int height, int width) : window(sf::VideoMode(height, width), "MEMECRIA") {}
+            Background(int height, std::string name, int width) : window(sf::VideoMode(height, width), name) {}
             void draw_on_window(const char path_to_image[]);                                    //
             void draw_on_window(const char path_to_image[], int x, int y);                      //
             void draw_on_window(sf::Color colour);                                              //
@@ -64,7 +74,12 @@ namespace screen {                                                              
             bool is_open() const;                                                               //
             void display();                                                                     //
             void enter_button(sf::Vector2i vec);                                                //
+            sf::RenderWindow Get_window();
     };
+
+    sf::Vector2u Point::getPoint() {
+        return sf::Vector2u(x, y);
+    }
 
     Icons::Icons(std::string path, Point _vertex) {
         sf::Texture image;
@@ -81,6 +96,17 @@ namespace screen {                                                              
         Icons(path, p);
     }
     
+    void Icons::draw_object(Background wind) {
+        sf::Texture image;
+        image.loadFromFile(path_to_image);
+        sf::Sprite sprite_image;
+        sprite_image.setTexture(image);
+        sprite_image.setPosition(vertex.getPoint().x, vertex.getPoint().y);
+        wind.window.draw(sprite_image);
+    }
+
+
+
     Button::Button() {
         Icons _icon = {0};
         Buttons.push_back(_icon);
@@ -90,6 +116,16 @@ namespace screen {                                                              
         Buttons.push_back(_icon);
     }
 
+    void Button::draw_objects(Background window) { //add func
+            //it.draw_object(window);
+    }
+/*
+    sf::RenderWindow Background::Get_window() { //add func
+        //return window; IT DOESN't WORK. I DON'T KNOW
+        sf::RenderWindow fac;
+        return fac;
+    }
+ */   
     void Background::draw_on_window(const char path_to_image[]) {
         sf::Texture image;
         image.loadFromFile(path_to_image);
@@ -152,12 +188,16 @@ namespace screen {                                                              
     */
     void Background::play_sound() {
         if ( !melody_one.loadFromFile(path_to_melody_one) ) {
-            std::cout << "ERROR. Melody_one isn't detected" << std::endl;
+            std::cout << "ERROR. Melody_one isn't detected\n" << std::endl;
         }
         ringthone_one.setBuffer(melody_one);
         ringthone_one.play();
     }
-
+/*
+    sf::RenderWindow Background::getWindow() {
+        return window;
+    }
+*/
     void Background::enter_button(sf::Vector2i position) {
         float X = position.x;
         float Y = position.y;
@@ -169,12 +209,11 @@ namespace screen {                                                              
             std::cout << "SIGN IN/SIGN UP\n";
         }
         else if ( (X > 340 * kx) & (Y > 210 * ky) & (X < 975 * kx) & (Y < 285 * ky) ) {
-            //std::cout << "PERSONAL SETTINGS\n";
-            window.clear();
-            personal_settings();
+            std::cout << "PERSONAL SETTINGS\n";
+            global_personal = 1;
+            //std::cout << global_personal << std::endl;
         }
         
     }
 }
-
 
