@@ -5,6 +5,7 @@
 #include <SFML/Audio.hpp>
 #include <vector>
 #include <iterator>
+#include <list>
 
 #define path_to_melody_one "data/sounds/sp-cheers.wav"
 #define path_to_background "data/image/fon_memecria3.jpg"

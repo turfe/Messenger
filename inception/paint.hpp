@@ -46,7 +46,7 @@ namespace screen {       // Everything required for screen operation is stored h
             Icons(std::string path);                                                            // 3 different constructors
             Icons(std::string path, Point _vertex);                                             //
             Icons(std::string path, Point _vertex, double _height, double _width) : path_to_image(path), vertex(_vertex), height(_height), width(_width) {}
-            void draw_object(screen::Background wind); //add func
+            void draw_object(sf::RenderWindow& wind); //add func
     };
 
     class Button {                                                                              // Everything required for operations with buttons is stored here
@@ -60,11 +60,10 @@ namespace screen {       // Everything required for screen operation is stored h
 
     class Background {                                                                          // Class used for operations with background
         private:                                                                                //
-            //sf::RenderWindow window; WARNING                                                           // Reference: https://www.sfml-dev.org/documentation/2.5.1/classsf_1_1RenderWindow.php
+            sf::RenderWindow window;                                                          // Reference: https://www.sfml-dev.org/documentation/2.5.1/classsf_1_1RenderWindow.php
             void play_sound();                                                                  // Different functions used for interaction with the active window
             void my_clear();                                                                    //
         public:                                                                                 //
-            sf::RenderWindow window;
             Background(int height, int width) : window(sf::VideoMode(height, width), "MEMECRIA") {}
             Background(int height, std::string name, int width) : window(sf::VideoMode(height, width), name) {}
             void draw_on_window(const char path_to_image[]);                                    //
@@ -74,7 +73,7 @@ namespace screen {       // Everything required for screen operation is stored h
             bool is_open() const;                                                               //
             void display();                                                                     //
             void enter_button(sf::Vector2i vec);                                                //
-            sf::RenderWindow Get_window();
+            sf::RenderWindow& Get_window();
     };
 
     sf::Vector2u Point::getPoint() {
@@ -96,13 +95,13 @@ namespace screen {       // Everything required for screen operation is stored h
         Icons(path, p);
     }
     
-    void Icons::draw_object(Background wind) {
+    void Icons::draw_object(sf::RenderWindow& wind) {
         sf::Texture image;
         image.loadFromFile(path_to_image);
         sf::Sprite sprite_image;
         sprite_image.setTexture(image);
         sprite_image.setPosition(vertex.getPoint().x, vertex.getPoint().y);
-        wind.window.draw(sprite_image);
+        wind.draw(sprite_image);
     }
 
 
@@ -117,15 +116,16 @@ namespace screen {       // Everything required for screen operation is stored h
     }
 
     void Button::draw_objects(Background window) { //add func
-            //it.draw_object(window);
+            for(Icons It : Buttons) {
+                It.draw_object(window.Get_window());
+            }
     }
-/*
-    sf::RenderWindow Background::Get_window() { //add func
-        //return window; IT DOESN't WORK. I DON'T KNOW
-        sf::RenderWindow fac;
-        return fac;
+
+    sf::RenderWindow& Background::Get_window() { //add func
+        sf::RenderWindow& wind = window;
+        return wind;
     }
- */   
+    
     void Background::draw_on_window(const char path_to_image[]) {
         sf::Texture image;
         image.loadFromFile(path_to_image);
@@ -195,7 +195,7 @@ namespace screen {       // Everything required for screen operation is stored h
     }
 /*
     sf::RenderWindow Background::getWindow() {
-        return window;
+        return &window;
     }
 */
     void Background::enter_button(sf::Vector2i position) {
