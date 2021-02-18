@@ -17,14 +17,13 @@ void wait_sign(screen::Background& window, int H, int W) {
 
 
 void personal_settings() {
-    int W = 400;
-    int H = 400;
+    int W = 500;
+    int H = 500;
     screen::Background settings_window(H, "Personal Settings", W);
     while( settings_window.is_open() ) {
         settings_window.handler_button();
         settings_window.draw_on_window(sf::Color::White);
         settings_window.display();
-        std::cout << "KEKE\n";
         if ( global_sign == 0 ) {
             wait_sign(settings_window, H, W);
         }
