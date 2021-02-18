@@ -62,7 +62,7 @@ namespace screen {       // Everything required for screen operation is stored h
         private:                                                                                //
             sf::RenderWindow window;                                                          // Reference: https://www.sfml-dev.org/documentation/2.5.1/classsf_1_1RenderWindow.php
             void play_sound();                                                                  // Different functions used for interaction with the active window
-            void my_clear();                                                                    //
+            //void my_clear();                                                                    //
         public:                                                                                 //
             Background(int height, int width) : window(sf::VideoMode(height, width), "MEMECRIA") {}
             Background(int height, std::string name, int width) : window(sf::VideoMode(height, width), name) {}
@@ -73,7 +73,9 @@ namespace screen {       // Everything required for screen operation is stored h
             bool is_open() const;                                                               //
             void display();                                                                     //
             void enter_button(sf::Vector2i vec);                                                //
+            void my_clear();
             sf::RenderWindow& Get_window();
+            //void close_window();
     };
 
     sf::Vector2u Point::getPoint() {

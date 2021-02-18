@@ -6,6 +6,9 @@
 #include <vector>
 #include <iterator>
 #include <list>
+#include <thread>         // std::this_thread::sleep_for
+#include <chrono>         // std::chrono::seconds1
+
 
 #define path_to_melody_one "data/sounds/sp-cheers.wav"
 #define path_to_background "data/image/fon_memecria3.jpg"
