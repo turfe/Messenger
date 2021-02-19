@@ -9,7 +9,7 @@
 #include <thread>         // std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds1
 
-
+#define path_to_font "data/fonts/19413.ttf"
 #define path_to_melody_one "data/sounds/sp-cheers.wav"
 #define path_to_background "data/image/fon_memecria3.jpg"
 #define path_to_sound "data/image/icon_sound.jpg"
