@@ -3,7 +3,6 @@
 class User {
     public:
         std::string name;
-        std::string family;
         std::string information;
         std::string nickname;
         std::string avatar;
