@@ -7,7 +7,7 @@
 #include <iterator>
 #include <list>
 #include <thread>         // std::this_thread::sleep_for
-#include <chrono>         // std::chrono::seconds1
+#include <chrono>         // std::chrono::seconds
 
 #define path_to_font "data/fonts/19413.ttf"
 #define path_to_melody_one "data/sounds/sp-cheers.wav"
@@ -20,5 +20,5 @@ sf::Sound ringthone_one;
 sf::SoundBuffer melody_one;
 sf::Vector2u pos;
 
-short global_personal = 0;
-short global_sign = 0;
+short global_personal = 0;                                                      //enter personal_settings
+short global_sign = 0;                                                          //check situate system

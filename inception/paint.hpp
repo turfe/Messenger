@@ -55,7 +55,8 @@ namespace screen {       // Everything required for screen operation is stored h
         public:                                                                                 //
             Button(Icons _icon);                                                                // 2 constructors
             Button();                                                                           //
-            void draw_objects(screen::Background wind); //add func
+            void insert(Icons icon);
+            void draw_objects(screen::Background wind); 
     };                                                                                          //
 
     class Background {                                                                          // Class used for operations with background
@@ -97,6 +98,10 @@ namespace screen {       // Everything required for screen operation is stored h
         Icons(path, p);
     }
     
+    void Button::insert(Icons icon) {
+        Buttons.push_back(icon);
+    }
+
     void Icons::draw_object(sf::RenderWindow& wind) {
         sf::Texture image;
         image.loadFromFile(path_to_image);
