@@ -28,7 +28,6 @@ int main() {
     screen::Background window(1240, 800);
     //window.draw_on_window(sf::Color::Green);
     //window.draw_on_window(path_to_background);
-
     while ( window.is_open() ) {
         check_personal();
         /*sf::Event event;
@@ -38,8 +37,8 @@ int main() {
         }
         */
         window.handler_button();
-        window.draw_on_window(sf::Color::Green);
-        window.draw_on_window(path_to_background);
+        window.draw_on_window(Background_test);
+        window.draw_on_window(path_to_new_background); //change_logo
         //window.draw_on_window(path_to_sound, 200, 200);
         //window.draw(sprite_fon);
         //window.draw(shape);

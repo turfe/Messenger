@@ -13,7 +13,7 @@
 #define path_to_sound "data/image/icon_sound.jpg"
 
 //эти глобальные переменные необходимы для проигрывания саунда
-//issue: add melody in global_variables
+//issue: add melody in global_variables //closed
 sf::Sound ringthone_one;
 sf::SoundBuffer melody_one;
 sf::Vector2u pos;
@@ -39,6 +39,7 @@ namespace screen {       // Everything required for screen operation is stored h
     
     class Icons {                                                                               // Everything required for operations with images is stored here
         private:                                                                                //
+        public:    
             std::string path_to_image;                                                          // Path to the file containing image
             double height, width;                                                               // Image's height and width in pixels
             Point vertex;                                                                       // This point represents the upper left corner of the image
@@ -56,7 +57,7 @@ namespace screen {       // Everything required for screen operation is stored h
             Button(Icons _icon);                                                                // 2 constructors
             Button();                                                                           //
             void insert(Icons icon);
-            void draw_objects(screen::Background wind); 
+            void draw_objects(sf::RenderWindow& wind); 
     };                                                                                          //
 
     class Background {                                                                          // Class used for operations with background
@@ -88,14 +89,23 @@ namespace screen {       // Everything required for screen operation is stored h
         image.loadFromFile(path);
         sf::Vector2u pos = image.getSize();
         path_to_image = path;
+        std::cout << path_to_image << "  92\n";
         vertex = _vertex;
         height = pos.y;
         width = pos.x;
     }
 
     Icons::Icons(std::string path) {
-        Point p;
-        Icons(path, p);
+        Point p(0, 0);
+        //std::cout << "99 " << path << std::endl; //WORK
+        sf::Texture image;
+        image.loadFromFile(path);
+        sf::Vector2u pos = image.getSize();
+        path_to_image = path;
+        //std::cout << path_to_image << "  106\n"; //WORK
+        vertex = p;
+        height = pos.y;
+        width = pos.x;
     }
     
     void Button::insert(Icons icon) {
@@ -122,9 +132,10 @@ namespace screen {       // Everything required for screen operation is stored h
         Buttons.push_back(_icon);
     }
 
-    void Button::draw_objects(Background window) { //add func
+    void Button::draw_objects(sf::RenderWindow& window) { //add func
             for(Icons It : Buttons) {
-                It.draw_object(window.Get_window());
+                It.draw_object(window);
+                std::cout << It.path_to_image << std::endl;;
             }
     }
 
@@ -208,7 +219,7 @@ namespace screen {       // Everything required for screen operation is stored h
     void Background::enter_button(sf::Vector2i position) {
         float X = position.x;
         float Y = position.y;
-        //add kx, ky in global variables
+        //add kx, ky in methods
         float kx = pos.x / 1240.0;
         float ky = pos.y / 800.0;
         //std::cout << kx << " = kx\n" << ky << " = ky\n";
