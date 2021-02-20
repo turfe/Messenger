@@ -19,7 +19,7 @@ void wait_sign(screen::Background& window, int H, int W) {
     sf::Font font;
     font.loadFromFile(path_to_font);
     for (int i = 5; i > 0; --i) {
-        window.draw_on_window(sf::Color::White);
+        window.draw_on_window(Background_test);
         //std::string str = "FIRST,\nLOG IN TO THE MESSENGER\n\n\n\n             AUTO CLOSE: ";
         //str += std::to_string(i);
         //str += "sec";
@@ -80,7 +80,7 @@ void personal_settings() {
     screen::Background settings_window(H, "Personal Settings", W);
     while( settings_window.is_open() ) {
         settings_window.handler_button();
-        settings_window.draw_on_window(sf::Color::White);
+        settings_window.draw_on_window(Background_test);
         settings_window.display();
         if ( global_sign == 0 ) {
             wait_sign(settings_window, W, H);
