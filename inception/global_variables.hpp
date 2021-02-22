@@ -26,4 +26,4 @@ sf::Vector2u pos;
 static const sf::Color Background_test = sf::Color(103, 154, 205);
 
 short global_personal = 0;                                                      //enter personal_settings
-short global_sign = 0;                                                          //check situate system
+short global_sign = 1;                                                          //check situate system

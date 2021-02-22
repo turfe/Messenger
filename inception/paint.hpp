@@ -35,6 +35,9 @@ namespace screen {       // Everything required for screen operation is stored h
             Point(double _x, double _y) : x(_x), y(_y) {}                                       // Constructor
             Point() : x(0), y(0) {}                                                             // Another constructor
             sf::Vector2u getPoint();
+            ~Point() {
+                std::cout << "delete Point\n";
+            }
     };                                                                                          //
     
     class Icons {                                                                               // Everything required for operations with images is stored here
@@ -47,7 +50,10 @@ namespace screen {       // Everything required for screen operation is stored h
             Icons(std::string path);                                                            // 3 different constructors
             Icons(std::string path, Point _vertex);                                             //
             Icons(std::string path, Point _vertex, double _height, double _width) : path_to_image(path), vertex(_vertex), height(_height), width(_width) {}
-            void draw_object(sf::RenderWindow& wind); //add func
+            void draw_object(sf::RenderWindow& wind); //add func //added
+            ~Icons() {
+                std::cout << "delete Icons\n";
+            }
     };
 
     class Button {                                                                              // Everything required for operations with buttons is stored here
@@ -57,7 +63,10 @@ namespace screen {       // Everything required for screen operation is stored h
             Button(Icons _icon);                                                                // 2 constructors
             Button();                                                                           //
             void insert(Icons icon);
-            void draw_objects(sf::RenderWindow& wind); 
+            void draw_objects(sf::RenderWindow& wind);
+            ~Button() {
+                std::cout << "delete Button\n";
+            }
     };                                                                                          //
 
     class Background {                                                                          // Class used for operations with background
@@ -78,6 +87,9 @@ namespace screen {       // Everything required for screen operation is stored h
             void my_clear();
             sf::RenderWindow& Get_window();
             //void close_window();
+            ~Background() {
+                std::cout << "delete BAckground\n";
+            }
     };
 
     sf::Vector2u Point::getPoint() {
