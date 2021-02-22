@@ -21,11 +21,11 @@ sf::Vector2u pos;
 
 #pragma once
 #include "global_variables.hpp"
-
+/*
 namespace screen {
     class Background;
     }
-
+*/
 
 namespace screen {       // Everything required for screen operation is stored here 
     class Point {                                                                               // Class for storing information about a single 2D point
@@ -51,6 +51,7 @@ namespace screen {       // Everything required for screen operation is stored h
             Icons(std::string path, Point _vertex);                                             //
             Icons(std::string path, Point _vertex, double _height, double _width) : path_to_image(path), vertex(_vertex), height(_height), width(_width) {}
             void draw_object(sf::RenderWindow& wind); //add func //added
+            bool click() const; // Issue: Vsevolod
             ~Icons() {
                 std::cout << "delete Icons\n";
             }
@@ -120,6 +121,11 @@ namespace screen {       // Everything required for screen operation is stored h
         width = pos.x;
     }
     
+    bool Icons::click() const {
+        //if you click on Icons -> return true -> action_one
+        //else return false ->non_action
+    }
+
     void Button::insert(Icons icon) {
         Buttons.push_back(icon);
     }
