@@ -2,10 +2,10 @@
 #include <string>
 #include <iostream>
 
-void encoder_decoder(std::string &input, std::string &key, std::string &output) {
-    int n = std::min(input.length(), key.length());
+void decoder(std::string &input, std::string &key, std::string &output) {
+    int n = input.length();
     for(int i = 0; i < n; i++) {
-        output.push_back(input[i] ^ key[i]);
+        output.push_back((-input[i]) ^ key[i]);
     }
 }
 
@@ -17,13 +17,13 @@ int main() {
     std::string buffer, key, password, unique_nickname, number_phone, melody;
     std::getline(fin, key);
     std::getline(fin, buffer);
-    encoder_decoder(buffer, key, password);
+    decoder(buffer, key, password);
     std::getline(fin, buffer);
-    encoder_decoder(buffer, key, unique_nickname);
+    decoder(buffer, key, unique_nickname);
     std::getline(fin, buffer);
-    encoder_decoder(buffer, key, number_phone);
+    decoder(buffer, key, number_phone);
     std::getline(fin, buffer);
-    encoder_decoder(buffer, key, melody);
+    decoder(buffer, key, melody);
     fout << key << "\n"<< password << "\n" << unique_nickname << "\n" << number_phone << "\n" << melody << "\n";
     
     fout.close();
