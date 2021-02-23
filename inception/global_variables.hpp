@@ -9,14 +9,14 @@
 #include <thread>         // std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
 
-#define path_to_font "data/fonts/19413.ttf"
-#define path_to_melody_one "data/sounds/sp-cheers.wav"
-#define path_to_background "data/image/fon_memecria3.jpg"
-#define path_to_sound "data/image/icon_sound.jpg"
-#define path_to_mem "data/image/mem.jpg"
-#define path_to_mem2 "data/image/mem2.jpg"
-#define path_to_dante "data/image/dante.jpg"
-#define path_to_new_background "data/image/new_background.jpeg"
+#define path_to_font "../inception/data/fonts/19413.ttf"
+#define path_to_melody_one "../inception/data/sounds/sp-cheers.wav"
+#define path_to_background "../inception/data/image/fon_memecria3.jpg"
+#define path_to_sound "../inception/data/image/icon_sound.jpg"
+#define path_to_mem "../inception/data/image/mem.jpg"
+#define path_to_mem2 "../inception/data/image/mem2.jpg"
+#define path_to_dante "../inception/data/image/dante.jpg"
+#define path_to_new_background "../inception/data/image/new_background.jpeg"
 
 //эти глобальные переменные необходимы для проигрывания саунда
 //issue: add melody in global_variables
