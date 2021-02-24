@@ -87,10 +87,11 @@ namespace screen {       // Everything required for screen operation is stored h
             void draw_on_window(const char path_to_image[]);                                    //
             void draw_on_window(const char path_to_image[], int x, int y);                      //
             void draw_on_window(sf::Color colour);                                              //
-            void handler_button();                                                              //
+            void handler_button_start();                                                              //
+            void handler_button();
             bool is_open();                                                               //
             void display();                                                                     //
-            void enter_button(sf::Vector2i vec);                                                //
+            void enter_button_start(sf::Vector2i vec);                                                //
             void my_clear();
             sf::RenderWindow& Get_window();
             float Get_kx() const;
@@ -240,6 +241,17 @@ namespace screen {       // Everything required for screen operation is stored h
             if ( event.type == sf::Event::Closed ) {
                 window.close();
             }
+            //                                                  Issue:add Key_pressed for func
+        }
+    }
+
+
+    void Background::handler_button_start() {
+        sf::Event event;
+        while ( window.pollEvent(event) ) {
+            if ( event.type == sf::Event::Closed ) {
+                window.close();
+            }
             else if ( event.type == sf::Event::KeyPressed ) {
                 play_sound();
             }
@@ -247,7 +259,7 @@ namespace screen {       // Everything required for screen operation is stored h
                 //std::cout << "LEFT CLICK" << std::endl;
                 sf::Vector2i position_mouse = sf::Mouse::getPosition(window);
                 //std::cout << position_mouse.x << "= x\n" << position_mouse.y << "= y\n" << std::endl;
-                enter_button(position_mouse);
+                enter_button_start(position_mouse);
             }
         }
     }
@@ -286,7 +298,7 @@ namespace screen {       // Everything required for screen operation is stored h
         return &window;
     }
 */
-    void Background::enter_button(sf::Vector2i position) {
+    void Background::enter_button_start(sf::Vector2i position) {
         float X = position.x;
         float Y = position.y;
         //add kx, ky in methods

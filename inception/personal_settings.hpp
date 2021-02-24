@@ -32,7 +32,7 @@ void wait_sign(screen::Background& window, int H, int W) {
         std::cout << i << std::endl;
         window.Get_window().draw(text); //add method in class Background
         window.display();
-        window.handler_button();
+        window.handler_button();        //add handler_button
         std::this_thread::sleep_for (std::chrono::seconds(1));
         window.Get_window().clear();    //add method in class Background
         //window.display();
@@ -44,14 +44,13 @@ void wait_sign(screen::Background& window, int H, int W) {
 void change_data(screen::Background& window, int W, int H) {
     //add func: personal_settings
     screen::Icons ava(path_to_mem2, screen::Point(100, 100));               //Issue: Error in constructor Icons, WTF??  // TO SOLVED
-    /*screen::Icons name(path_to_mem, screen::Point(200, 200));
+    screen::Icons name(path_to_mem, screen::Point(200, 200));
     screen::Icons password(path_to_sound);
     screen::Icons nickname(path_to_sound);
     screen::Icons info(path_to_sound);
     screen::Icons melody(path_to_dante, screen::Point(0, 0));
-    */
     screen::Button public_data(ava);
-    /*std::cout << "WORK\n";
+    std::cout << "WORK\n";
     std::cout << name.path_to_image << std::endl;
     public_data.insert(name);
     public_data.insert(password);
@@ -59,33 +58,25 @@ void change_data(screen::Background& window, int W, int H) {
     public_data.insert(info);
     //std::cout << "WROK\n";
     public_data.insert(melody);
-    */
     public_data.draw_objects(window.Get_window());
     window.display();
     while( window.is_open() ) {
-        //window.handler_button();
         sf::Event event;
         while ( window.Get_window().pollEvent(event) ) {
             if ( event.type == sf::Event::Closed ) {
-                window.Get_window().close();
+                window.Get_window().close();            //Issue: add my_CLOSE
             }
-            /*else if ( event.type == sf::Event::KeyPressed ) {
-                play_sound();
-            }
-            */
             else if ( sf::Mouse::isButtonPressed(sf::Mouse::Left) ) {
-                //std::cout << "LEFT CLICK" << std::endl;
                 sf::Vector2i position_mouse = sf::Mouse::getPosition(window.Get_window());
                 if ( ava.click(position_mouse, window) == true ) {
-                    std::cout << "CLICK\n";
+                        std::cout << "CLICK\n";
+                        //change_ava        //ISsue: add funk
                 }
-                //std::cout << position_mouse.x << "= x\n" << position_mouse.y << "= y\n" << std::endl;
-                //enter_button(position_mouse);
             }
         }
         //window.display();
-        // ISSUE: Add metod in class Icons of situation Icons and click on
-        // Issue: Add all work_background in RGB:6699CC
+        // ISSUE: Add metod in class Icons of situation Icons and click on          //added
+        // Issue: Add all work_background in RGB:6699CC                             //added
         // add in here: handler
     }
 }
@@ -104,7 +95,7 @@ void check(int& H, int& W) {
 void personal_settings() {
     int H, W;
     check(H, W);
-    std::cout << H << "    " << W << std::endl; ///Issue: add normal full size window
+    std::cout << H << "    " << W << std::endl; ///Issue: add normal full size window           //added
     screen::Background settings_window(W, "Personal Settings", H);
     while( settings_window.is_open() ) {
         settings_window.handler_button();

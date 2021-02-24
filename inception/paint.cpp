@@ -36,7 +36,7 @@ int main() {
                 window.close();
         }
         */
-        window.handler_button();
+        window.handler_button_start();
         window.draw_on_window(Background_test);
         window.draw_on_window(path_to_new_background); //change_logo
         //window.draw_on_window(path_to_sound, 200, 200);
