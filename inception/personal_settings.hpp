@@ -108,7 +108,7 @@ void check(int &H, int &W) {
         W = 500;
     } else {
         W = 1240;
-        H = 800;
+        H = 700;
     }
 }
 

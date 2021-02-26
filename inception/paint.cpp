@@ -25,7 +25,7 @@ int main() {
     sprite_fon.setPosition(0, 0);
     */
     //sf::RenderWindow window = screen::Background::create(350, 350); 
-    screen::Background window(1240, 800);
+    screen::Background window(1240, 740);
     //window.draw_on_window(sf::Color::Green);
     //window.draw_on_window(path_to_background);
     while ( window.is_open() ) {
