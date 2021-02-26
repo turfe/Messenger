@@ -43,12 +43,22 @@ void wait_sign(screen::Background& window, int H, int W) {
 
 void change_data(screen::Background& window, int W, int H) {
     //add func: personal_settings
+    /*
     screen::Icons ava(path_to_mem2, screen::Point(100, 100));               //Issue: Error in constructor Icons, WTF??  // TO SOLVED
     screen::Icons name(path_to_mem, screen::Point(200, 200));
     screen::Icons password(path_to_sound);
     screen::Icons nickname(path_to_sound);
     screen::Icons info(path_to_sound);
     screen::Icons melody(path_to_dante, screen::Point(0, 0));
+    */
+    window.draw_on_window(pers_settings_joke1, 0, 390);
+    window.draw_on_window(pers_settings_joke2, 450, 200);
+    screen::Icons ava(pers_settings_ava, screen::Point(10, 10));
+    screen::Icons name(pers_settings_name, screen::Point(10, 400));
+    screen::Icons password(pers_settings_password, screen::Point(10, 500));
+    screen::Icons nickname(pers_settings_nickname, screen::Point(450, 10));
+    screen::Icons info(pers_settings_info, screen::Point(450, 130));
+    screen::Icons melody(pers_settings_melody, screen::Point(10, 600));
     screen::Button public_data(ava);
     std::cout << "WORK\n";
     std::cout << name.path_to_image << std::endl;
@@ -59,6 +69,7 @@ void change_data(screen::Background& window, int W, int H) {
     //std::cout << "WROK\n";
     public_data.insert(melody);
     public_data.draw_objects(window.Get_window());
+    //window.draw_on_window(pers_settings_joke1, 0, 300);
     window.display();
     while( window.is_open() ) {
         sf::Event event;
@@ -69,9 +80,25 @@ void change_data(screen::Background& window, int W, int H) {
             else if ( sf::Mouse::isButtonPressed(sf::Mouse::Left) ) {
                 sf::Vector2i position_mouse = sf::Mouse::getPosition(window.Get_window());
                 if ( ava.click(position_mouse, window) == true ) {
-                        std::cout << "CLICK\n";
+                        std::cout << "ava\n";
                         //change_ava        //ISsue: add funk
                 }
+                else if ( name.click(position_mouse, window) == true ) {
+                        std::cout << "name\n";
+                }
+                else if ( info.click(position_mouse, window) == true ) {
+                        std::cout << "info\n";
+                }
+                else if ( nickname.click(position_mouse, window) == true ) {
+                        std::cout << "nickname\n";
+                }
+                else if ( password.click(position_mouse, window) == true ) {
+                        std::cout << "password\n";
+                }
+                else if ( melody.click(position_mouse, window) == true ) {
+                        std::cout << "melody\n";
+                }
+
             }
         }
         //window.display();
