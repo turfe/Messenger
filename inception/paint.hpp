@@ -35,10 +35,14 @@ namespace screen {       // Everything required for screen operation is stored h
             Point(double _x, double _y) : x(_x), y(_y) {}                                       // Constructor
             Point() : x(0), y(0) {}                                                             // Another constructor
             sf::Vector2u getPoint();
+            float getX() const;
+            float getY() const;
+            ~Point() {
+                std::cout << "delete Point\n";
+            }
     };                                                                                          //
     
     class Icons {                                                                               // Everything required for operations with images is stored here
-        private:                                                                                //
         public:    
             std::string path_to_image;                                                          // Path to the file containing image
             double height, width;                                                               // Image's height and width in pixels
@@ -47,7 +51,13 @@ namespace screen {       // Everything required for screen operation is stored h
             Icons(std::string path);                                                            // 3 different constructors
             Icons(std::string path, Point _vertex);                                             //
             Icons(std::string path, Point _vertex, double _height, double _width) : path_to_image(path), vertex(_vertex), height(_height), width(_width) {}
-            void draw_object(sf::RenderWindow& wind); //add func
+            void draw_object(sf::RenderWindow& wind); //add func //added
+            bool click(sf::Vector2i position_mouse, Background& wind) const; // 
+            float Get_main_x();
+            float Get_main_y();
+            ~Icons() {
+                std::cout << "delete Icons\n";
+            }
     };
 
     class Button {                                                                              // Everything required for operations with buttons is stored here
@@ -57,31 +67,51 @@ namespace screen {       // Everything required for screen operation is stored h
             Button(Icons _icon);                                                                // 2 constructors
             Button();                                                                           //
             void insert(Icons icon);
-            void draw_objects(sf::RenderWindow& wind); 
+            void draw_objects(sf::RenderWindow& wind);
+            ~Button() {
+                std::cout << "delete Button\n";
+            }
     };                                                                                          //
 
     class Background {                                                                          // Class used for operations with background
         private:                                                                                //
             sf::RenderWindow window;                                                          // Reference: https://www.sfml-dev.org/documentation/2.5.1/classsf_1_1RenderWindow.php
-            void play_sound();                                                                  // Different functions used for interaction with the active window
-            //void my_clear();                                                                    //
+            void play_sound(); // Different functions used for interaction with the active window
+            //void my_clear(); 
+            sf::Vector2u Begin_size;
+            float kx;
+            float ky;
         public:                                                                                 //
-            Background(int height, int width) : window(sf::VideoMode(height, width), "MEMECRIA") {}
-            Background(int height, std::string name, int width) : window(sf::VideoMode(height, width), name) {}
+            Background(int height, int width) : window(sf::VideoMode(height, width), "MEMECRIA"), kx(1), ky(1), Begin_size(sf::Vector2u(height, width)) {}
+            Background(int height, std::string name, int width) : window(sf::VideoMode(height, width), name), kx(1), ky(1), Begin_size(sf::Vector2u(height, width)) {}
             void draw_on_window(const char path_to_image[]);                                    //
             void draw_on_window(const char path_to_image[], int x, int y);                      //
             void draw_on_window(sf::Color colour);                                              //
-            void handler_button();                                                              //
-            bool is_open() const;                                                               //
+            void handler_button_start();                                                              //
+            void handler_button();
+            bool is_open();                                                               //
             void display();                                                                     //
-            void enter_button(sf::Vector2i vec);                                                //
+            void enter_button_start(sf::Vector2i vec);                                                //
             void my_clear();
             sf::RenderWindow& Get_window();
+            float Get_kx() const;
+            float Get_ky() const;
             //void close_window();
+            ~Background() {
+                std::cout << "delete BAckground\n";
+            }
     };
 
     sf::Vector2u Point::getPoint() {
         return sf::Vector2u(x, y);
+    }
+
+    float Point::getX() const {
+        return x;
+    }
+
+    float Point::getY() const {
+        return y;
     }
 
     Icons::Icons(std::string path, Point _vertex) {
@@ -107,7 +137,32 @@ namespace screen {       // Everything required for screen operation is stored h
         height = pos.y;
         width = pos.x;
     }
-    
+
+    float Icons::Get_main_x() {
+        sf::Vector2u p = vertex.getPoint();
+        return p.x;
+    }
+
+    float Icons::Get_main_y() {
+        sf::Vector2u p = vertex.getPoint();
+        return p.y;
+    }
+
+    bool Icons::click(sf::Vector2i position_mouse, screen::Background& window) const {
+        //if you click on Icons -> return true -> action_one
+        //else return false ->non_action
+        float X = position_mouse.x;
+        float Y = position_mouse.y;
+        float kx = window.Get_kx();
+        float ky = window.Get_ky();
+        float main_x = static_cast<float>(vertex.getX());
+        float main_y = static_cast<float>(vertex.getY());
+        if ( ( X > main_x * kx ) & ( X < (main_x + width) * kx ) & ( Y > main_y * ky ) & ( Y < (main_y + height) * ky ) ) {
+            return true;
+        }
+        return false;
+    }
+
     void Button::insert(Icons icon) {
         Buttons.push_back(icon);
     }
@@ -172,7 +227,26 @@ namespace screen {       // Everything required for screen operation is stored h
         window.display();
     }
 
+    float Background::Get_kx() const {
+        return kx;
+    }
+
+    float Background::Get_ky() const {
+        return ky;
+    }
+
     void Background::handler_button() {
+        sf::Event event;
+        while ( window.pollEvent(event) ) {
+            if ( event.type == sf::Event::Closed ) {
+                window.close();
+            }
+            //                                                  Issue:add Key_pressed for func
+        }
+    }
+
+
+    void Background::handler_button_start() {
         sf::Event event;
         while ( window.pollEvent(event) ) {
             if ( event.type == sf::Event::Closed ) {
@@ -185,13 +259,21 @@ namespace screen {       // Everything required for screen operation is stored h
                 //std::cout << "LEFT CLICK" << std::endl;
                 sf::Vector2i position_mouse = sf::Mouse::getPosition(window);
                 //std::cout << position_mouse.x << "= x\n" << position_mouse.y << "= y\n" << std::endl;
-                enter_button(position_mouse);
+                enter_button_start(position_mouse);
             }
         }
     }
 
-    bool Background::is_open() const {
+    bool Background::is_open() {
+        //sf::Vector2u posic = window.getSize();
         pos = window.getSize();
+        kx = pos.x / (static_cast<float> (Begin_size.x));
+        ky = pos.y / (static_cast<float> (Begin_size.y));
+        /*if ( ( kx != 1 ) & ( ky != 1 ) ) {                //TEST
+            std::cout << "kx " << kx << "\nBegin_size x " << Begin_size.x << "\npos x " << pos.x << std::endl;
+            std::cout << "ky " << ky << "\nBegin_size y " << Begin_size.y << "\npos y " << pos.y << std::endl;
+        }
+        */
         return window.isOpen();
     }
 
@@ -216,7 +298,7 @@ namespace screen {       // Everything required for screen operation is stored h
         return &window;
     }
 */
-    void Background::enter_button(sf::Vector2i position) {
+    void Background::enter_button_start(sf::Vector2i position) {
         float X = position.x;
         float Y = position.y;
         //add kx, ky in methods
