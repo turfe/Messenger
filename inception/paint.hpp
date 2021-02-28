@@ -100,7 +100,9 @@ namespace screen {       // Everything required for screen operation is stored h
 
         void draw_on_window(const char path_to_image[]);                                    //
         void draw_on_window(const char path_to_image[], int x, int y);                      //
-        void draw_on_window(sf::Color colour);                                              //
+        void draw_on_window(sf::Color colour);
+
+        void draw_on_window(std::string text, int pixel_size, sf::Vector2f position);//
         void handler_button_start();                                                              //
         void handler_button();
 
@@ -237,6 +239,19 @@ namespace screen {       // Everything required for screen operation is stored h
 
     void Background::draw_on_window(sf::Color colour) {
         window.clear(colour);
+    }
+
+    void Background::draw_on_window(std::string text, int pixel_size, sf::Vector2f position) {
+        sf::Text title;
+        sf::Font font;
+        font.loadFromFile(path_to_font);
+        title.setFont(font);
+        title.setString(text);
+        title.setFillColor(sf::Color::Black);
+        title.setCharacterSize(pixel_size);
+        title.setPosition(position);
+        title.setStyle(sf::Text::Bold);
+        window.draw(title);
     }
 
     void Background::my_clear() {

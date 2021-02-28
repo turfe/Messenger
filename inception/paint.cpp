@@ -2,7 +2,7 @@
 #include "personal_settings.hpp"
 
 void check_personal() {
-    if ( global_personal == 1 ) {
+    if (global_personal == 1) {
         personal_settings();
         global_personal = 0;
     }
@@ -28,7 +28,7 @@ int main() {
     screen::Background window(1240, 740);
     //window.draw_on_window(sf::Color::Green);
     //window.draw_on_window(path_to_background);
-    while ( window.is_open() ) {
+    while (window.is_open()) {
         check_personal();
         /*sf::Event event;
         while ( window.pollEvent(event) ) {
