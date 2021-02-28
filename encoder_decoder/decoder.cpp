@@ -5,7 +5,7 @@
 
 
 void decoder(std::string &input, std::string &key, std::string &output) {
-    int n = input.length();
+    int n = std::min(input.length(), key.length());
     int shift = key[0] - '0';
     for(int i = 0; i < n; i++) {
         if(input[i] - shift < -128) {
