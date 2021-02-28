@@ -7,10 +7,10 @@
 #define ps_three_img ""
 
 std::string countdown(int count) {
-        std::string str = "FIRST,\nLOG IN TO THE MESSENGER\n\n\n\n             AUTO CLOSE: ";
-        str += std::to_string(count);
-        str += "sec";
-        return str;
+    std::string str = "FIRST,\nLOG IN TO THE MESSENGER\n\n\n\n             AUTO CLOSE: ";
+    str += std::to_string(count);
+    str += "sec";
+    return str;
 }
 
 
@@ -80,23 +80,23 @@ void change_data(screen::Background& window, int W, int H) {
             else if ( sf::Mouse::isButtonPressed(sf::Mouse::Left) ) {
                 sf::Vector2i position_mouse = sf::Mouse::getPosition(window.Get_window());
                 if ( ava.click(position_mouse, window) == true ) {
-                        std::cout << "ava\n";
-                        //change_ava        //ISsue: add funk
+                    std::cout << "ava\n";
+                    //change_ava        //ISsue: add funk
                 }
                 else if ( name.click(position_mouse, window) == true ) {
-                        std::cout << "name\n";
+                    std::cout << "name\n";
                 }
                 else if ( info.click(position_mouse, window) == true ) {
-                        std::cout << "info\n";
+                    std::cout << "info\n";
                 }
                 else if ( nickname.click(position_mouse, window) == true ) {
-                        std::cout << "nickname\n";
+                    std::cout << "nickname\n";
                 }
                 else if ( password.click(position_mouse, window) == true ) {
-                        std::cout << "password\n";
+                    std::cout << "password\n";
                 }
                 else if ( melody.click(position_mouse, window) == true ) {
-                        std::cout << "melody\n";
+                    std::cout << "melody\n";
                 }
 
             }
@@ -136,7 +136,3 @@ void personal_settings() {
         }
     }
 }
-
-    
-
-
