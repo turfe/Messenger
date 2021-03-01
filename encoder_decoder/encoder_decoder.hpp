@@ -14,6 +14,7 @@ void encoder(std::string &input, std::string &key, std::string &output) {
         output[i] = output[n - i - 1];
         output[n - i - 1] = temp;
     }
+    
     int shift = key[0] - '0';
     for(int i = 0; i < n; i++) {
         if(output[i] + shift > -1) {
@@ -29,7 +30,7 @@ void decoder(std::string &input, std::string &key, std::string &output) {
     int n = std::min(input.length(), key.length());
     int shift = key[0] - '0';
     for(int i = 0; i < n; i++) {
-        if(input[i] - shift < -128) {
+        if(input[i] - shift < -127) {
             input[i] = input[i] + 128 - shift;
         }
         else {
@@ -46,6 +47,7 @@ void decoder(std::string &input, std::string &key, std::string &output) {
         output.push_back((-input[i]) ^ key[i]);
     }
 }
+
 
 void file_unlock(char* pathname) {
     int status;
