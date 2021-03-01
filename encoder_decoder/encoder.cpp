@@ -2,19 +2,22 @@
 #include <string>
 #include <iostream>
 #include <sys/stat.h>
+#include <unistd.h>
 
 
 void encoder(std::string &input, std::string &key, std::string &output) {
     int n = std::min(input.length(), key.length());
+    int test;
     for(int i = 0; i < n; i++) {
         output.push_back(-(input[i] ^ key[i]));
     }
-    for(int i = 0; i <= (n / 2) - 1; i++) {
-        char temp;
-        temp = output[i];
-        output[i] = output[n - i - 1];
-        output[n - i - 1] = temp;
-    }
+	for(int i = 0; i <= (n / 2) - 1; i++) {
+        	char temp;
+      		temp = output[i];
+        	output[i] = output[n - i - 1];
+        	output[n - i - 1] = temp;
+	}
+    
     int shift = key[0] - '0';
     for(int i = 0; i < n; i++) {
         if(output[i] + shift > -1) {
@@ -44,6 +47,11 @@ void file_lock(char* pathname) {
 
 int main() {
     char pathname[] = "encoded_data/encoded_data.txt";
+    int status;
+    status = unlink(pathname);
+    if(status != 0) {
+    	std::cout << "unlink ERROR" << '\n';
+    }
     file_unlock(pathname);
     std::ifstream fin("data.txt");
     std::ofstream fout("encoded_data/encoded_data.txt");
