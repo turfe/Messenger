@@ -10,7 +10,7 @@ void encoder(std::string &input, std::string &key, std::string &output) {
     }
     for(int i = 0; i <= (n / 2) - 1; i++) {
         char temp;
-      	temp = output[i];
+        temp = output[i];
         output[i] = output[n - i - 1];
         output[n - i - 1] = temp;
     }
