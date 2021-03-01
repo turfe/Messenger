@@ -7,7 +7,6 @@
 
 void encoder(std::string &input, std::string &key, std::string &output) {
     int n = std::min(input.length(), key.length());
-    int test;
     for(int i = 0; i < n; i++) {
         output.push_back(-(input[i] ^ key[i]));
     }
