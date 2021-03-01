@@ -1,6 +1,11 @@
-#include "global_variables.hpp"
-//#include "paint.hpp"
 #pragma once
+#include "global_variables.hpp"
+#include "user.hpp"
+#include <fstream>
+#include <iostream>
+#include <sys/stat.h>
+#include <unistd.h>
+
 
 #define ps_err_img ""
 #define ps_two_img ""
@@ -40,27 +45,81 @@ void wait_sign(screen::Background &window, int H, int W) {
     window.my_clear();
 }
 
+void change_password() {
+    User personal;
+    file_unlock(secret_path);
+    personal.read(secret_path);         //add 
+    personal.change_password();          //add
+    personal.write(secret_path);        //add
+}
+
+void change_info() {
+    User personal;
+    file_unlock(secret_path);
+    personal.read(secret_path);
+    std::string str;
+    std::cout << "Enter new info\n";
+    std::cin >> str;
+    personal.information = str;
+    personal.write(secret_path);
+}
+
+void change_ava() {
+    User personal;
+    file_unlock(secret_path);
+    personal.read(secret_path);
+    std::string str;
+    std::cout << "Enter new path_ava\n";
+    std::cin >> str;
+    personal.avatar = str;
+    personal.write(secret_path);
+}
+
+void change_melody() {
+    User personal;
+    file_unlock(secret_path);
+    personal.read(secret_path);
+    personal.change_melody();           //add 
+    personal.write(secret_path);
+}
+
+void change_nickname() {
+    User personal;
+    file_unlock(secret_path);
+    personal.read(secret_path);
+    std::string str;
+    std::cout << "Enter new nickname\n";
+    std::cin >> str;
+    personal.nickname = str;
+    personal.write(secret_path);
+
+}
+
+void change_name() {
+    User personal;
+    file_unlock(secret_path);
+    personal.read(secret_path);
+    std::string str;
+    std::cout << "Enter new name\n";
+    std::cin >> str;
+    personal.name = str;
+    personal.write(secret_path);
+}
+
+
 
 void change_data(screen::Background &window, int W, int H) {
-    //add func: personal_settings
-    /*
-    screen::Icons ava(path_to_mem2, screen::Point(100, 100));               //Issue: Error in constructor Icons, WTF??  // TO SOLVED
-    screen::Icons name(path_to_mem, screen::Point(200, 200));
-    screen::Icons password(path_to_sound);
-    screen::Icons nickname(path_to_sound);
-    screen::Icons info(path_to_sound);
-    screen::Icons melody(path_to_dante, screen::Point(0, 0));
-    */
+    //add func read in encoded_data
     window.draw_on_window(pers_settings_joke1, 0, 390);
     window.draw_on_window(pers_settings_joke2, 450, 200);
     screen::Icons ava(pers_settings_ava, screen::Point(10, 10));
     screen::Icons name_box(pers_settings_name_box, screen::Point(10, 400));
-    window.draw_on_window("Name", 45, sf::Vector2f(137, 400));
+    window.draw_on_window("Name", 45, sf::Vector2f(137, 400));                      //draw text
     screen::Icons password(pers_settings_password, screen::Point(10, 500));
     screen::Icons nickname(pers_settings_nickname, screen::Point(450, 10));
     screen::Icons info(pers_settings_info, screen::Point(450, 130));
     screen::Icons melody_box(pers_settings_melody_box, screen::Point(10, 600));
-    window.draw_on_window("Melody", 45, sf::Vector2f(128, 600));
+    window.draw_on_window("", 45, sf::Vector2f(128, 600));                          //draw text
     screen::Button public_data(ava);
     std::cout << "WORK\n";
     std::cout << name_box.path_to_image << std::endl;
@@ -71,26 +130,38 @@ void change_data(screen::Background &window, int W, int H) {
     public_data.insert(melody_box);
     public_data.draw_objects(window.Get_window());
     window.display();
-    while (window.is_open()) {
+    while ( window.is_open() ) {
         sf::Event event;
         while (window.Get_window().pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
+            if ( event.type == sf::Event::Closed ) {
                 window.Get_window().close();            //Issue: add my_CLOSE
-            } else if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            } 
+            else if ( sf::Mouse::isButtonPressed(sf::Mouse::Left) ) {
                 sf::Vector2i position_mouse = sf::Mouse::getPosition(window.Get_window());
-                if (ava.click(position_mouse, window) == true) {
+                if ( ava.click(position_mouse, window) == true) {
                     std::cout << "ava\n";
+                    change_ava();
                     //change_ava        //ISsue: add funk
-                } else if (name_box.click(position_mouse, window) == true) {
+                } 
+                else if ( name_box.click(position_mouse, window) == true ) {
                     std::cout << "name\n";
-                } else if (info.click(position_mouse, window) == true) {
+                    change_name();
+                } 
+                else if ( info.click(position_mouse, window) == true ) {
                     std::cout << "info\n";
-                } else if (nickname.click(position_mouse, window) == true) {
+                    change_info();
+                } 
+                else if ( nickname.click(position_mouse, window) == true ) {
                     std::cout << "nickname\n";
-                } else if (password.click(position_mouse, window) == true) {
+                    change_nickname();
+                } 
+                else if ( password.click(position_mouse, window) == true ) {
                     std::cout << "password\n";
-                } else if (melody_box.click(position_mouse, window) == true) {
+                    change_password();
+                } 
+                else if ( melody_box.click(position_mouse, window) == true ) {
                     std::cout << "melody box\n";
+                    change_melody();
                 }
             }
         }
