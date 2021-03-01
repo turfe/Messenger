@@ -4,8 +4,8 @@
 #include <iostream>
 #include <sys/stat.h>
 #include <unistd.h>
-
-#define secret_path "/inception/data/user/user.txt"
+#include "global_variables.hpp"
+//char secret_path[] = "/inception/data/user/user.txt";
 
 void encoder(std::string &input, std::string &key, std::string &output);
 void decoder(std::string &input, std::string &key, std::string &output);
@@ -14,6 +14,8 @@ void file_unlock(char* s);
 
 class User {
     public:
+        User(std::string s1, std::string s2, std::string s3, std::string s4, std::string s5, std::string s6);
+        User();
         std::string name;
         std::string information;
         std::string nickname;
@@ -28,6 +30,12 @@ class User {
         std::string unique_nickname;
         std::string melody;
 };
+
+User::User(std::string s1, std::string s2, std::string s3, std::string s4, std::string s5, std::string s6) : 
+    name(s1), information(s2), nickname(s3), avatar(s4), password(s5), unique_nickname(s1 + s2), melody(s6) {}
+
+User::User() : 
+    name(""), information(""), nickname(""), avatar(""), password(""), unique_nickname(""), melody("") {}
 
 void User::write(std::string path) {
     std::ofstream fout(path);

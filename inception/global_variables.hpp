@@ -26,6 +26,8 @@
 #define pers_settings_joke1 "../inception/data/image/pers_settings_joke1_1.png"
 #define pers_settings_joke2 "../inception/data/image/pers_settings_joke2_1.png"
 
+char secret_path[] = "/inception/data/user/user.txt";
+
 //эти глобальные переменные необходимы для проигрывания саунда
 //issue: add melody in global_variables
 sf::Sound ringthone_one;
@@ -34,4 +36,4 @@ sf::Vector2u pos;
 static const sf::Color Background_test = sf::Color(103, 154, 205);
 
 short global_personal = 0;                                                      //enter personal_settings
-short global_sign = 1;                                                          //check situate system
+short global_sign = 0;                                                          //check situate system

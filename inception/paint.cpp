@@ -1,16 +1,17 @@
 #include "paint.hpp"
 #include "personal_settings.hpp"
+#include "sign.hpp"
 
-void check_personal() {
-    if (global_personal == 1) {
+void check_personal(screen::Background &window) {
+    if ( global_personal == 1 ) {
         personal_settings();
         global_personal = 0;
     }
-    /*
-    else if ( global_personal >= 2 ) {
-        std::cout << "ERROR IN OPEN PERSONAL_SETTINGS\n";
+    if ( global_sign == 1 ) {
+        std::cout << "RUN\n";
+        window.my_clear();
+        sign();
     }
-    */
 }
 
 int main() {
@@ -29,7 +30,7 @@ int main() {
     //window.draw_on_window(sf::Color::Green);
     //window.draw_on_window(path_to_background);
     while (window.is_open()) {
-        check_personal();
+        check_personal(window);
         /*sf::Event event;
         while ( window.pollEvent(event) ) {
             if ( event.type == sf::Event::Closed )

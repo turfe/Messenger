@@ -187,7 +187,7 @@ void personal_settings() {
     check(H, W);
     std::cout << H << "    " << W << std::endl; ///Issue: add normal full size window           //added
     screen::Background settings_window(W, "Personal Settings", H);
-    while (settings_window.is_open()) {
+    while ( settings_window.is_open() ) {
         settings_window.handler_button();
         settings_window.draw_on_window(Background_test);
         settings_window.display();

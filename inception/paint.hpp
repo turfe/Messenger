@@ -340,7 +340,9 @@ namespace screen {       // Everything required for screen operation is stored h
         //std::cout << kx << " = kx\n" << ky << " = ky\n";
         if ((X > 345 * kx) & (Y > 70 * ky) & (X < 965 * kx) & (Y < 175 * ky)) {
             std::cout << "SIGN IN/SIGN UP\n";
-        } else if ((X > 340 * kx) & (Y > 210 * ky) & (X < 975 * kx) & (Y < 285 * ky)) {
+            global_sign = 1;                                                                    //add BT
+        } 
+        else if ((X > 340 * kx) & (Y > 210 * ky) & (X < 975 * kx) & (Y < 285 * ky)) {
             std::cout << "PERSONAL SETTINGS\n";
             global_personal = 1;
             //std::cout << global_personal << std::endl;
