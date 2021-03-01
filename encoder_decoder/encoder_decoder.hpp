@@ -8,12 +8,12 @@ void encoder(std::string &input, std::string &key, std::string &output) {
     for(int i = 0; i < n; i++) {
         output.push_back(-(input[i] ^ key[i]));
     }
-	for(int i = 0; i <= (n / 2) - 1; i++) {
+    for(int i = 0; i <= (n / 2) - 1; i++) {
         char temp;
       	temp = output[i];
         output[i] = output[n - i - 1];
         output[n - i - 1] = temp;
-	}
+    }
     
     int shift = key[0] - '0';
     for(int i = 0; i < n; i++) {
