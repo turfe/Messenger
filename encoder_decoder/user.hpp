@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#define secret_path "../inception/data/user/.user.txt"
+
 class User {
     public:
         std::string name;
@@ -10,6 +12,5 @@ class User {
         std::string key;
         std::string password;
         std::string unique_nickame;
-        std::string number_phone;
         std::string melody;
 };
