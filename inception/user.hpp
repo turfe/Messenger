@@ -39,6 +39,7 @@ User::User() :
 
 void User::write(std::string path) {
     std::ofstream fout(path);
+    std::cout << "PATH "<< path << "\n";
     if ( !fout ) {
         std::cout << "ERROR write user.hpp\n";
     }
@@ -55,7 +56,6 @@ void User::write(std::string path) {
 
 void User::read(std::string path) {
     std::ifstream fin(secret_path);
-    fin.open(secret_path);
     if( !fin ) {
         std::cout << "ERROR\n";
     }
