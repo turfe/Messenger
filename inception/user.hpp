@@ -25,7 +25,7 @@ class User {
         void change_password();
         void change_melody();
     private:                                  //to keep this info in encode type
-        std::string key;
+        std::string key = "9PyA[Z]LAq*yimdfUQ0.Fv9o1ykI6C;J(VNyLY7kf3UGj)z0_N7SEqZbZy%s86ROQoxFi3<fgh";
         std::string password;
         std::string unique_nickname;
         std::string melody;
@@ -40,8 +40,9 @@ User::User() :
 void User::write(std::string path) {
     std::ofstream fout(path);
     if ( !fout ) {
-        std::cout << "ERROR\n";
+        std::cout << "ERROR write user.hpp\n";
     }
+    std::cout << key << " KEYS\n";
     std::string buffer;
     fout << name << "\n" << information << "\n" <<  nickname << "\n" << avatar << "\n" << key << "\n";
     encoder(buffer, key, password);
@@ -53,7 +54,8 @@ void User::write(std::string path) {
 }
 
 void User::read(std::string path) {
-    std::ifstream fin(path);
+    std::ifstream fin(secret_path);
+    fin.open(secret_path);
     if( !fin ) {
         std::cout << "ERROR\n";
     }

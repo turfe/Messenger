@@ -28,7 +28,7 @@ void sign() {
         a = 1;
     }
     User personal(s1, s2, s3, s4, s5, s6);
-    personal.write(secret_path);
+    personal.write(two_secret_path);
     global_sign = 0;
 }
 
