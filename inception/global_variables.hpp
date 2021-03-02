@@ -26,8 +26,8 @@
 #define pers_settings_joke1 "../inception/data/image/pers_settings_joke1_1.png"
 #define pers_settings_joke2 "../inception/data/image/pers_settings_joke2_1.png"
 
-char secret_path[] = "/inception/data/user/user.txt";
-std::string two_secret_path = "inception/data/user/user.txt";
+char secret_path[] = "data/user/user.txt";
+std::string two_secret_path = "data/user/user.txt";
 //эти глобальные переменные необходимы для проигрывания саунда
 //issue: add melody in global_variables
 sf::Sound ringthone_one;
