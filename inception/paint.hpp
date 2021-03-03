@@ -59,6 +59,7 @@ namespace screen {       // Everything required for screen operation is stored h
 
         void draw_object(sf::RenderWindow &wind); //add func //added
         bool click(sf::Vector2i position_mouse, Background &wind) const; //
+        void display_text(sf::Event &event, sf::String player_input, sf::Text player_text);
         float Get_main_x();
 
         float Get_main_y();
@@ -119,7 +120,7 @@ namespace screen {       // Everything required for screen operation is stored h
 
         //void close_window();
         ~Background() {
-            std::cout << "delete BAckground\n";
+            std::cout << "delete Background\n";
         }
     };
 
@@ -195,6 +196,15 @@ namespace screen {       // Everything required for screen operation is stored h
         sprite_image.setTexture(image);
         sprite_image.setPosition(vertex.getPoint().x, vertex.getPoint().y);
         wind.draw(sprite_image);
+    }
+
+    void Icons::display_text(sf::Event &event, sf::String player_input, sf::Text player_text) {
+        if(event.type == sf::Event::TextEntered){
+            if(event.text.unicode < 128){
+                player_input += event.text.unicode;
+                player_text.setString(player_input);
+            }
+        }
     }
 
 
