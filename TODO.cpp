@@ -1,5 +1,4 @@
 // TODO features
-//  - icons in personal settings
 //  - login window
 //  - chats (scrolling, display messages)
 //  - add some accurate sounds
@@ -8,6 +7,7 @@
 //  - defence
 //  - user.hpp
 //  - add buffer
+// /- icons in personal settings
 //
 //
 //
