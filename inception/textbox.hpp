@@ -24,7 +24,7 @@ private:
                 delete_last_symbol();
             }
         }
-        textbox.setString(text.str() + "_");
+        textbox.setString(text.str() + "/");
     }
 
     void delete_last_symbol() {
@@ -42,7 +42,7 @@ private:
 public:
     Textbox() {}
 
-    Textbox(sf::Font font, int size, bool select, sf::Vector2f position, int input_limit) {
+    Textbox(const sf::Font &font, int size, bool select, sf::Vector2f position, int input_limit) {
         textbox.setFont(font);
         textbox.setCharacterSize(size);
         textbox.setFillColor(sf::Color::Black);
@@ -56,7 +56,7 @@ public:
         }
     }
 
-    ~Textbox(){ }
+    ~Textbox() {}
 
     void setLimit(bool tof) {
         hasLimit = tof;
@@ -91,12 +91,14 @@ public:
         if (isSelected) {
             int typed_symbol = event.text.unicode;
             if (typed_symbol < 128) {
-                if (hasLimit){
-                    if (text.str().length() <= limit)
+                if (hasLimit) {
+                    if (text.str().length() <= limit) {
                         input_logic(typed_symbol);
-                    if (text.str().length() > limit && typed_symbol == DELETE){
+                    } else if (text.str().length() > limit && typed_symbol == DELETE) {
                         delete_last_symbol();
                     }
+                } else {
+                    input_logic(typed_symbol);
                 }
             }
         }
