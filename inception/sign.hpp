@@ -18,28 +18,28 @@ void sign() {
         sign.display();
         sign.handler_button();
         sign.draw_on_window(Background_test);
-        sign.draw_on_window("Name:asd", 45, sf::Vector2f(50, 50));
+        sign.draw_on_window("Name:", 45, sf::Vector2f(50, 50));
         sign.display();
         sf::Event event;
         // TODO
         //  - add click icons
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
             textbox_name.setSelected(true);
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
             textbox_name.setSelected(false);
         }
 
         while (sign.Get_window().pollEvent(event)) {
-            std::cout << textbox_name.getText() << std::endl;
             switch (event.type) {
                 case sf::Event::TextEntered:
                     std::cout << "Hey" << std::endl;
                     textbox_name.type_text(event);
+                    std::cout << textbox_name.getText() << std::endl;
             }
         }
         textbox_name.draw(sign.Get_window());
-        sign.display();
+        sign.Get_window().display();
         /*
         std::cout << "Enter name\n";
         std::cin >> s1;
