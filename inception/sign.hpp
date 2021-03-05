@@ -17,7 +17,8 @@ void sign() {
     std::vector<sf::Vector2f> positions;
     positions.reserve(6);
     for (int j = 0; j < 6; ++j) {
-        positions.emplace_back(sf::Vector2f(280, 63 + 45 * i));
+        positions.emplace_back(sf::Vector2f(325, 63 + 45 * i));
+        info_user.emplace_back("");
     }
     Textbox textbox_input(font, 30, false, positions[0], 15);
     bool flag = false;
@@ -61,6 +62,7 @@ void sign() {
                 i++;
                 textbox_input.setPosition(positions[i]);
                 textbox_input.setSelected(true);
+                continue;
             } else if (counter == 6) {
                 textbox_input.setSelected(false);
                 flag = true;
@@ -75,12 +77,14 @@ void sign() {
                     std::cout << textbox_input.getText() << std::endl;
             }
         }
-        sign.draw_on_window(info_user[0], 45, sf::Vector2f(250, 50));
+        textbox_input.draw(sign.Get_window());
+        /*sign.draw_on_window(info_user[0], 45, sf::Vector2f(250, 50));
         sign.draw_on_window(info_user[1], 45, sf::Vector2f(250, 100));
         sign.draw_on_window(info_user[2], 45, sf::Vector2f(250, 150));
         sign.draw_on_window(info_user[3], 45, sf::Vector2f(250, 200));
         sign.draw_on_window(info_user[4], 45, sf::Vector2f(250, 250));
         sign.draw_on_window(info_user[5], 45, sf::Vector2f(250, 300));
+         */
         sign.Get_window().display();
         if (flag)
             break;
