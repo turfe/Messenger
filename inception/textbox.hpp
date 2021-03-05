@@ -30,8 +30,8 @@ private:
     void delete_last_symbol() {
         std::string str = text.str();
         std::string new_str;
-        for (char i : str) {
-            new_str += i;
+        for (int i = 0; i < str.length() - 1; i++) {
+            new_str += str[i];
         }
         text.str("");
         text << new_str;
@@ -56,7 +56,13 @@ public:
         }
     }
 
-    ~Textbox() {}
+    Textbox(const Textbox &copy_textbox) {
+        textbox = copy_textbox.textbox;
+        text << copy_textbox.text.str();
+        isSelected = copy_textbox.isSelected;
+        hasLimit = copy_textbox.hasLimit;
+        limit = copy_textbox.limit;
+    }
 
     void setLimit(bool tof) {
         hasLimit = tof;
@@ -65,6 +71,14 @@ public:
     void setLimit(bool tof, int input_limit) {
         hasLimit = tof;
         limit = input_limit - 1;
+    }
+
+    void erase_text() {
+        text.str("");
+    }
+
+    void setPosition(sf::Vector2f pos){
+        textbox.setPosition(pos);
     }
 
     void setSelected(bool select) {
