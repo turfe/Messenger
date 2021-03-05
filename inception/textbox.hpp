@@ -86,7 +86,7 @@ public:
         if (!select) {
             std::string str = text.str();
             std::string new_str = "";
-            for (int i = 0; i < str.length() - 1; ++i) {
+            for (int i = 0; i < str.length(); ++i) {
                 new_str += str[i];
             }
             textbox.setString(new_str);
