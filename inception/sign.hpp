@@ -37,10 +37,10 @@ void sign() {
         sf::Event event;
 
         // TODO: add click icons
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+        if ( sf::Keyboard::isKeyPressed(sf::Keyboard::Return) ) {
             counter++;
             if (counter == 1) {
-                std::cout << counter << std::endl;
+                std::cout << "COUNT: "<< counter << std::endl;
                 textbox_input.setSelected(true);
             } /*else if (counter > 1 && counter != 7) {
                 std::cout << counter << std::endl;
@@ -63,6 +63,8 @@ void sign() {
         }
 
         while (sign.Get_window().pollEvent(event)) {
+            sign.handler_button();
+            std::cout << "66_LINE\n";
             switch (event.type) {
                 case sf::Event::TextEntered:
                     std::cout << "Hey" << std::endl;
@@ -70,10 +72,14 @@ void sign() {
                     std::cout << textbox_input.getText() << std::endl;
             }
         }
+        /*
         for (int j = 0; j < 6; ++j) {
+            std::cout << "ERROR in I cycle" << j << std::endl;
             textbox_input.draw(sign.Get_window());
         }
-        sign.Get_window().display();
+        */
+        //sign.Get_window().display();
+        sign.display();
         if (flag)
             break;
         //}
@@ -92,6 +98,7 @@ void sign() {
         std::cin >> s6;
         a = 1;*/
     }
+    std::cout << "97 __LINE\n";
     User personal(s1, s2, s3, s4, s5, s6);
     personal.write(two_secret_path);
     global_sign = 0;
