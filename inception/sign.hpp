@@ -7,7 +7,7 @@
 
 void sign() {
     std::ofstream File;
-    std::string s1, s2, s3, s4, s5, s6;
+    std::vector<std::string> info_user;
     sf::Font font;
     font.loadFromFile(path_to_font);
 
@@ -37,12 +37,10 @@ void sign() {
         sf::Event event;
 
         // TODO: add click icons
-        if ( sf::Keyboard::isKeyPressed(sf::Keyboard::Return) ) {
-            counter++;
-            if (counter == 1) {
-                std::cout << "COUNT: "<< counter << std::endl;
-                textbox_input.setSelected(true);
-            } /*else if (counter > 1 && counter != 7) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+            std::cout << counter << std::endl;
+            textbox_input.setSelected(true);
+        } /*else if (counter > 1 && counter != 7) {
                 std::cout << counter << std::endl;
                 i++;
                 s1 = textbox_input.getText();
@@ -53,18 +51,23 @@ void sign() {
                 s6 = textbox_input.getText();
                 flag = true;
             }*/
-        }
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-            textbox_input.setSelected(false);
-            if (counter == 6) {
-                s6 = textbox_input.getText();
+            counter++;
+            if (counter < 6) {
+                textbox_input.setSelected(false);
+                info_user[i] = textbox_input.getText();
+                textbox_input.erase_text();
+                i++;
+                textbox_input.setPosition(positions[i]);
+                textbox_input.setSelected(true);
+            } else if (counter == 6) {
+                textbox_input.setSelected(false);
                 flag = true;
             }
         }
 
         while (sign.Get_window().pollEvent(event)) {
-            sign.handler_button();
-            std::cout << "66_LINE\n";
             switch (event.type) {
                 case sf::Event::TextEntered:
                     std::cout << "Hey" << std::endl;
@@ -72,14 +75,13 @@ void sign() {
                     std::cout << textbox_input.getText() << std::endl;
             }
         }
-        /*
-        for (int j = 0; j < 6; ++j) {
-            std::cout << "ERROR in I cycle" << j << std::endl;
-            textbox_input.draw(sign.Get_window());
-        }
-        */
-        //sign.Get_window().display();
-        sign.display();
+        sign.draw_on_window(info_user[0], 45, sf::Vector2f(250, 50));
+        sign.draw_on_window(info_user[1], 45, sf::Vector2f(250, 100));
+        sign.draw_on_window(info_user[2], 45, sf::Vector2f(250, 150));
+        sign.draw_on_window(info_user[3], 45, sf::Vector2f(250, 200));
+        sign.draw_on_window(info_user[4], 45, sf::Vector2f(250, 250));
+        sign.draw_on_window(info_user[5], 45, sf::Vector2f(250, 300));
+        sign.Get_window().display();
         if (flag)
             break;
         //}
@@ -98,10 +100,9 @@ void sign() {
         std::cin >> s6;
         a = 1;*/
     }
-    std::cout << "97 __LINE\n";
-    User personal(s1, s2, s3, s4, s5, s6);
-    personal.write(two_secret_path);
+
+    User personal(info_user[0], info_user[1], info_user[2], info_user[3], info_user[4], info_user[5]);
+    personal.
+            write(two_secret_path);
     global_sign = 0;
 }
-
-
