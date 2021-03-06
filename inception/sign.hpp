@@ -12,7 +12,6 @@ void sign() {
     font.loadFromFile(path_to_font);
 
     int i = 0, counter = 0;
-    //std::vector<Textbox> input_data;
 
     std::vector<sf::Vector2f> positions;
     positions.reserve(6);
@@ -40,17 +39,7 @@ void sign() {
         // TODO: add click icons
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
             textbox_input.setSelected(true);
-        } /*else if (counter > 1 && counter != 7) {
-                std::cout << counter << std::endl;
-                i++;
-                s1 = textbox_input.getText();
-                textbox_input.erase_text();
-                textbox_input.setPosition(positions[i]);
-            } else if (counter == 7) {
-                std::cout << counter << std::endl;
-                s6 = textbox_input.getText();
-                flag = true;
-            }*/
+        }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
             if (counter < 6 && !textbox_input.check_symbols() && !textbox_input.getText().empty()) {
@@ -70,10 +59,12 @@ void sign() {
         }
 
         while (sign.Get_window().pollEvent(event)) {
+            sign.handler_button();
             switch (event.type) {
                 case sf::Event::TextEntered:
                     if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                         textbox_input.type_text(event);
+                        std::cout << textbox_input.getText() << std::endl;
                     }
             }
         }
@@ -85,9 +76,9 @@ void sign() {
         sign.draw_on_window(info_user[4], 45, sf::Vector2f(350, 250));
         sign.draw_on_window(info_user[5], 45, sf::Vector2f(350, 300));
         sign.Get_window().display();
-        if (flag) {
+        if (flag)
             break;
-        }
+
         //}
         /*
         std::cout << "Enter name\n";
@@ -106,8 +97,7 @@ void sign() {
     }
 
     User personal(info_user[0], info_user[1], info_user[2], info_user[3], info_user[4], info_user[5]);
-    personal.
-            write(two_secret_path);
+    personal.write(two_secret_path);
     global_sign = 0;
 }
 

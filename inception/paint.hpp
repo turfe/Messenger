@@ -179,8 +179,11 @@ namespace screen {       // Everything required for screen operation is stored h
         float ky = window.Get_ky();
         float main_x = static_cast<float>(vertex.getX());
         float main_y = static_cast<float>(vertex.getY());
-        if ((X > main_x * kx) & (X < (main_x + width) * kx) & (Y > main_y * ky) & (Y < (main_y + height) * ky)) {
+        if ( (X > main_x * kx) & (X < (main_x + width) * kx) & (Y > main_y * ky) & (Y < (main_y + height) * ky) ) {
             return true;
+        }
+        else if ( (X < main_x * kx) | (X > (main_x + width) * kx) | (Y < main_y * ky) | (Y > (main_y + height) * ky) ) {
+            return false;
         }
         return false;
     }
