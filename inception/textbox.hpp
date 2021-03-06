@@ -5,7 +5,7 @@
 
 #define DELETE 8
 #define ENTER 13
-#define ESCAPE 27
+#define ESCAPE 29
 
 
 class Textbox {
@@ -66,6 +66,18 @@ public:
 
     void setLimit(bool tof) {
         hasLimit = tof;
+    }
+
+    bool check_symbols(){
+        bool result = false;
+        std::string check_str = text.str();
+        for (char i : check_str) {
+            if (i < 32 || i > 126){
+                result = true;
+                return result;
+            }
+        }
+        return result;
     }
 
     void setLimit(bool tof, int input_limit) {
