@@ -12,14 +12,14 @@ void sign() {
     font.loadFromFile(path_to_font);
 
     int i = 0, counter = 0;
-    //std::vector<Textbox> input_data;
 
     std::vector<sf::Vector2f> positions;
     positions.reserve(6);
     for (int j = 0; j < 6; ++j) {
-        positions.emplace_back(sf::Vector2f(280, 63 + 45 * i));
+        positions.emplace_back(sf::Vector2f(350, 50 + 50 * j));
+        info_user.emplace_back("");
     }
-    Textbox textbox_input(font, 30, false, positions[0], 15);
+    Textbox textbox_input(font, 45, false, positions[0], 15);
     bool flag = false;
 
     screen::Background sign(1240, "SIGN", 700);
@@ -38,29 +38,20 @@ void sign() {
 
         // TODO: add click icons
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-            std::cout << counter << std::endl;
             textbox_input.setSelected(true);
-        } /*else if (counter > 1 && counter != 7) {
-                std::cout << counter << std::endl;
-                i++;
-                s1 = textbox_input.getText();
-                textbox_input.erase_text();
-                textbox_input.setPosition(positions[i]);
-            } else if (counter == 7) {
-                std::cout << counter << std::endl;
-                s6 = textbox_input.getText();
-                flag = true;
-            }*/
+        }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-            counter++;
-            if (counter < 6) {
+            if (counter < 6 && !textbox_input.check_symbols() && !textbox_input.getText().empty()) {
+                counter++;
                 textbox_input.setSelected(false);
                 info_user[i] = textbox_input.getText();
                 textbox_input.erase_text();
                 i++;
                 textbox_input.setPosition(positions[i]);
                 textbox_input.setSelected(true);
+                sign.Get_window().display();
+                continue;
             } else if (counter == 6) {
                 textbox_input.setSelected(false);
                 flag = true;
@@ -70,20 +61,23 @@ void sign() {
         while (sign.Get_window().pollEvent(event)) {
             switch (event.type) {
                 case sf::Event::TextEntered:
-                    std::cout << "Hey" << std::endl;
-                    textbox_input.type_text(event);
-                    std::cout << textbox_input.getText() << std::endl;
+                    if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                        textbox_input.type_text(event);
+                        std::cout << textbox_input.getText() << std::endl;
+                    }
             }
         }
-        sign.draw_on_window(info_user[0], 45, sf::Vector2f(250, 50));
-        sign.draw_on_window(info_user[1], 45, sf::Vector2f(250, 100));
-        sign.draw_on_window(info_user[2], 45, sf::Vector2f(250, 150));
-        sign.draw_on_window(info_user[3], 45, sf::Vector2f(250, 200));
-        sign.draw_on_window(info_user[4], 45, sf::Vector2f(250, 250));
-        sign.draw_on_window(info_user[5], 45, sf::Vector2f(250, 300));
+        textbox_input.draw(sign.Get_window());
+        sign.draw_on_window(info_user[0], 45, sf::Vector2f(350, 50));
+        sign.draw_on_window(info_user[1], 45, sf::Vector2f(350, 100));
+        sign.draw_on_window(info_user[2], 45, sf::Vector2f(350, 150));
+        sign.draw_on_window(info_user[3], 45, sf::Vector2f(350, 200));
+        sign.draw_on_window(info_user[4], 45, sf::Vector2f(350, 250));
+        sign.draw_on_window(info_user[5], 45, sf::Vector2f(350, 300));
         sign.Get_window().display();
         if (flag)
             break;
+
         //}
         /*
         std::cout << "Enter name\n";
@@ -102,7 +96,7 @@ void sign() {
     }
 
     User personal(info_user[0], info_user[1], info_user[2], info_user[3], info_user[4], info_user[5]);
-    personal.
-            write(two_secret_path);
+    personal.write(two_secret_path);
     global_sign = 0;
 }
+
