@@ -59,7 +59,6 @@ void sign() {
         }
 
         while (sign.Get_window().pollEvent(event)) {
-            sign.handler_button();
             switch (event.type) {
                 case sf::Event::TextEntered:
                     if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
