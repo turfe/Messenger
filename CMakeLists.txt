@@ -23,7 +23,7 @@ add_executable(messenger
         #        encoder_decoder/encoder.cpp
         #        encoder_decoder/user.hpp
         inception/global_variables.hpp
-        inception/paint.cpp
+        inception/main.cpp
         inception/paint.hpp
         inception/personal_settings.hpp)
 
