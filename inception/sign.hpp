@@ -50,6 +50,7 @@ void sign() {
                 i++;
                 textbox_input.setPosition(positions[i]);
                 textbox_input.setSelected(true);
+                textbox_input.draw(sign.Get_window());
                 sign.Get_window().display();
                 continue;
             } else if (counter == 6) {
@@ -93,6 +94,7 @@ void sign() {
         std::cout << "Enter melody\n";
         std::cin >> s6;
         a = 1;*/
+
     }
 
     User personal(info_user[0], info_user[1], info_user[2], info_user[3], info_user[4], info_user[5]);
