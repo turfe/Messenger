@@ -102,4 +102,3 @@ void sign() {
     global_sign = 0;
 }
 
-
