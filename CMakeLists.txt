@@ -25,7 +25,9 @@ add_executable(messenger
         inception/global_variables.hpp
         inception/main.cpp
         inception/paint.hpp
-        inception/personal_settings.hpp)
+        inception/personal_settings.hpp
+        inception/sign.hpp
+        )
 
 target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 
