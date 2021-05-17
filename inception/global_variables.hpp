@@ -10,7 +10,7 @@
 #include <chrono>         // std::chrono::seconds
 
 #define path_to_font "../inception/data/fonts/19413.ttf"
-#define path_to_melody_one "../inception/data/sounds/sp-cheers.wav"
+#define path_to_melody_one "../inception/data/sounds/icq.wav"
 #define path_to_background "../inception/data/image/fon_memecria3.jpg"
 #define path_to_sound "../inception/data/image/icon_sound.jpg"
 #define path_to_mem "../inception/data/image/mem.jpg"
@@ -28,6 +28,7 @@
 
 char secret_path[] = "data/user/user.txt";
 std::string two_secret_path = "data/user/user.txt";
+std::string path_message = "data/user/friends";
 //эти глобальные переменные необходимы для проигрывания саунда
 //issue: add melody in global_variables
 sf::Sound ringthone_one;
@@ -36,4 +37,6 @@ sf::Vector2u pos;
 static const sf::Color Background_test = sf::Color(103, 154, 205);
 
 short global_personal = 0;                                                      //enter personal_settings
-short global_sign = 0;                                                          //check situate system
+short global_sign = 0;
+short global_have = 1;
+//check situate system

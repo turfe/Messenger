@@ -1,272 +1,49 @@
 #include "paint.hpp"
+#include "personal_settings.hpp"
+#include "sign.hpp"
 
-namespace screen {
-    class Background;
+void check_personal(screen::Background &window) {
+    if ( global_personal == 1 ) {
+        personal_settings();
+        global_personal = 0;
+    }
+    if ( global_sign == 1 ) {
+        std::cout << "RUN\n";
+        window.my_clear();
+        sign();
+    }
 }
 
-namespace screen {
-
-    //Point
-
-    Point::Point() : x(0), y(0) {}
-
-    Point::Point(double _x, double _y) : x(_x), y(_y) {}
-
-    sf::Vector2u Point::getPoint() {
-        return sf::Vector2u(x, y);
-    }
-
-    float Point::getX() const {
-        return x;
-    }
-
-    float Point::getY() const {
-        return y;
-    }
-
-    Point::~Point() {
-        std::cout << "delete Point\n";
-    }
-
-    //Icons
-
-    Icons::Icons(std::string path) {
-        Point p(0, 0);
-        //std::cout << "99 " << path << std::endl; //WORK
-        sf::Texture image;
-        image.loadFromFile(path);
-        sf::Vector2u pos = image.getSize();
-        path_to_image = path;
-        //std::cout << path_to_image << "  106\n"; //WORK
-        vertex = p;
-        height = pos.y;
-        width = pos.x;
-    }
-
-    Icons::Icons(std::string path, Point _vertex) {
-        sf::Texture image;
-        image.loadFromFile(path);
-        sf::Vector2u pos = image.getSize();
-        path_to_image = path;
-        std::cout << path_to_image << "  92\n";
-        vertex = _vertex;
-        height = pos.y;
-        width = pos.x;
-    }
-
-    Icons::Icons(std::string path, Point _vertex, double _height, double _width) : path_to_image(path), vertex(_vertex),
-                                                                                   height(_height), width(_width) {}
-
-    void Icons::draw_object(sf::RenderWindow &wind) {
-        sf::Texture image;
-        image.loadFromFile(path_to_image);
-        sf::Sprite sprite_image;
-        sprite_image.setTexture(image);
-        sprite_image.setPosition(vertex.getPoint().x, vertex.getPoint().y);
-        wind.draw(sprite_image);
-    }
-
-
-    void Icons::display_text(sf::Event &event, sf::String player_input, sf::Text player_text) {
-        if (event.type == sf::Event::TextEntered) {
-            if (event.text.unicode < 128) {
-                player_input += event.text.unicode;
-                player_text.setString(player_input);
-            }
-        }
-    }
-
-    bool Icons::click(sf::Vector2i position_mouse, screen::Background &window) const {
-        //if you click on Icons -> return true -> action_one
-        //else return false ->non_action
-        float X = position_mouse.x;
-        float Y = position_mouse.y;
-        float kx = window.Get_kx();
-        float ky = window.Get_ky();
-        float main_x = static_cast<float>(vertex.getX());
-        float main_y = static_cast<float>(vertex.getY());
-        if ((X > main_x * kx) & (X < (main_x + width) * kx) & (Y > main_y * ky) & (Y < (main_y + height) * ky)) {
-            return true;
-        } else if ((X < main_x * kx) | (X > (main_x + width) * kx) | (Y < main_y * ky) | (Y > (main_y + height) * ky)) {
-            return false;
-        }
-        return false;
-    }
-
-    float Icons::Get_main_x() {
-        sf::Vector2u p = vertex.getPoint();
-        return p.x;
-    }
-
-    float Icons::Get_main_y() {
-        sf::Vector2u p = vertex.getPoint();
-        return p.y;
-    }
-
-    Icons::~Icons() {
-        std::cout << "delete Icons\n";
-    }
-
-    //Button
-
-    Button::Button(Icons _icon) {
-        Buttons.push_back(_icon);
-    }
-
-    Button::Button() {
-        Icons _icon = {0};
-        Buttons.push_back(_icon);
-    }
-
-    void Button::insert(Icons icon) {
-        Buttons.push_back(icon);
-    }
-
-    void Button::draw_objects(sf::RenderWindow &window) { //add func
-        for (Icons It : Buttons) {
-            It.draw_object(window);
-            std::cout << It.path_to_image << std::endl;;
-        }
-    }
-
-    Button::~Button() {
-        std::cout << "delete Button\n";
-    }
-
-    //Background
-
-    void Background::play_sound() {
-        if (!melody_one.loadFromFile(path_to_melody_one)) {
-            std::cout << "ERROR. Melody_one isn't detected\n" << std::endl;
-        }
-        ringthone_one.setBuffer(melody_one);
-        ringthone_one.play();
-    }
-
-    Background::Background(int height, int width) : window(sf::VideoMode(height, width), "MEMECRIA"), kx(1), ky(1),
-                                                    Begin_size(sf::Vector2u(height, width)) {}
-
-    Background::Background(int height, std::string name, int width) : window(sf::VideoMode(height, width), name), kx(1),
-                                                                      ky(1),
-                                                                      Begin_size(sf::Vector2u(height, width)) {};
-
-    void Background::draw_on_window(const char path_to_image[]) {
-        sf::Texture image;
-        image.loadFromFile(path_to_image);
-        sf::Sprite sprite_image;
-        sprite_image.setTexture(image);
-        sprite_image.setPosition(0, 0);
-        window.draw(sprite_image);
-    }
-
-    void Background::draw_on_window(const char path_to_image[], int x, int y) {
-        sf::Texture image;
-        image.loadFromFile(path_to_image);
-        sf::Sprite sprite_image;
-        sprite_image.setTexture(image);
-        sprite_image.setPosition(x, y);
-        window.draw(sprite_image);
-    }
-
-    void Background::draw_on_window(sf::Color colour) {
-        window.clear(colour);
-    }
-
-    void Background::draw_on_window(std::string text, int pixel_size, sf::Vector2f position) {
-        sf::Text title;
-        sf::Font font;
-        font.loadFromFile(path_to_font);
-        title.setFont(font);
-        title.setString(text);
-        title.setFillColor(sf::Color::Black);
-        title.setCharacterSize(pixel_size);
-        title.setPosition(position);
-        title.setStyle(sf::Text::Bold);
-        window.draw(title);
-    }
-
-    void Background::handler_button_start() {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
+int main() {
+    /*
+    //sf::RenderWindow window(sf::VideoMode(350, 350), "MEMEKRIA");
+    //sf::CircleShape shape(100.f);
+    //shape.setFillColor(sf::Color::Green);
+    sf::Texture fon;
+    fon.loadFromFile(path_to_fon);
+    sf::Sprite sprite_fon;
+    sprite_fon.setTexture(fon);
+    sprite_fon.setPosition(0, 0);
+    */
+    //sf::RenderWindow window = screen::Background::create(350, 350); 
+    screen::Background window(1240, 740);
+    //window.draw_on_window(sf::Color::Green);
+    //window.draw_on_window(path_to_background);
+    while (window.is_open()) {
+        check_personal(window);
+        /*sf::Event event;
+        while ( window.pollEvent(event) ) {
+            if ( event.type == sf::Event::Closed )
                 window.close();
-            } else if (event.type == sf::Event::KeyPressed) {
-                play_sound();
-            } else if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                //std::cout << "LEFT CLICK" << std::endl;
-                sf::Vector2i position_mouse = sf::Mouse::getPosition(window);
-                //std::cout << position_mouse.x << "= x\n" << position_mouse.y << "= y\n" << std::endl;
-                enter_button_start(position_mouse);
-            }
-        }
-    }
-
-    void Background::handler_button() {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-            //                                                  Issue:add Key_pressed for func
-        }
-    }
-
-    bool Background::is_open() {
-        //sf::Vector2u posic = window.getSize();
-        pos = window.getSize();
-        kx = pos.x / (static_cast<float> (Begin_size.x));
-        ky = pos.y / (static_cast<float> (Begin_size.y));
-        /*if ( ( kx != 1 ) & ( ky != 1 ) ) {                //TEST
-            std::cout << "kx " << kx << "\nBegin_size x " << Begin_size.x << "\npos x " << pos.x << std::endl;
-            std::cout << "ky " << ky << "\nBegin_size y " << Begin_size.y << "\npos y " << pos.y << std::endl;
         }
         */
-        return window.isOpen();
-    }
-
-    void Background::display() {
+        window.handler_button_start();
+        window.draw_on_window(Background_test);
+        window.draw_on_window(path_to_new_background); //change_logo
+        //window.draw_on_window(path_to_sound, 200, 200);
+        //window.draw(sprite_fon);
+        //window.draw(shape);
         window.display();
     }
-
-    void Background::enter_button_start(sf::Vector2i position) {
-        float X = position.x;
-        float Y = position.y;
-        //add kx, ky in methods
-        float kx = pos.x / 1240.0;
-        float ky = pos.y / 800.0;
-        //std::cout << kx << " = kx\n" << ky << " = ky\n";
-        if ((X > 345 * kx) & (Y > 70 * ky) & (X < 965 * kx) & (Y < 175 * ky)) {
-            std::cout << "SIGN IN/SIGN UP\n";
-            global_sign = 1;                                                                    //add BT
-        } else if ((X > 340 * kx) & (Y > 210 * ky) & (X < 975 * kx) & (Y < 285 * ky)) {
-            std::cout << "PERSONAL SETTINGS\n";
-            global_personal = 1;
-            //std::cout << global_personal << std::endl;
-        }
-    }
-
-    void Background::my_clear() {
-        window.clear();
-        window.close();
-        window.display();
-    }
-
-    sf::RenderWindow& Background::Get_window() { //add func
-        sf::RenderWindow &wind = window;
-        return wind;
-    }
-
-    float Background::Get_kx() const {
-        return kx;
-    }
-
-    float Background::Get_ky() const {
-        return ky;
-    }
-
-    Background::~Background() {
-        std::cout << "delete Background\n";
-    }
+    return 0;
 }
-
-
