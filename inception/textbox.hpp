@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <sstream>
+#include "global_variables.hpp"
 
 #define DELETE 8
 #define ENTER 13
@@ -27,7 +28,7 @@ private:
         textbox.setString(text.str() + "/");
     }
 
-    void delete_last_symbol() {
+    void delete_last_symbol() {                                                 //Issue: to fix this O(n) function
         std::string str = text.str();
         std::string new_str;
         for (int i = 0; i < str.length() - 1; i++) {
@@ -130,3 +131,77 @@ public:
         }
     }
 };
+
+namespace sfC {
+class Text_t final {
+    public:
+        Text_t(const std::string &file, unsigned int size, const sf::Vector2f &pos, const std::string &str = "");
+        std::string get_text() const { return text_.getString(); }
+        void set_text(const std::string &text) { text_.setString(text); }
+        void push_back(const char cur_sym) { text_.setString(text_.getString() + cur_sym); }
+        void update(sf::Event& event);
+        void pop_back();
+        void set_style(const sf::Uint32 &new_style) { text_.setStyle(new_style); }
+        void set_color(const sf::Color &new_color) { text_.setFillColor(new_color); }
+        const sf::Text &for_draw() const { return text_; }
+        explicit operator bool () const noexcept { return !text_.getString().isEmpty(); }
+        sf::Font font_;
+        sf::Text text_;
+    };
+}
+
+sfC::Text_t::Text_t(const std::string& file , unsigned int size , const sf::Vector2f& pos , const std::string& str /*= ""*/)
+    : font_ () , text_ () {
+        if (!font_.loadFromFile (file)) {
+            std::cout << "Can't load text!\n";
+    }
+    text_.setCharacterSize (size);
+    text_.setFont (font_);
+    text_.setString (str);
+    text_.setPosition (pos);
+}
+
+void sfC::Text_t::pop_back () {
+    std::string temp = text_.getString ();
+    if (!temp.empty ()) {
+        temp.pop_back ();
+        text_.setString (temp);
+    }
+}
+
+bool IS_ASKII (const sf::Uint32& symbol) noexcept {
+    return (symbol > 47 && symbol < 58) ||
+            (symbol > 64 && symbol < 91) ||
+            (symbol > 96 && symbol < 123) ||
+            symbol == 95;
+}
+
+bool AnalyseWait_Text_User (sf::Window& window , std::string& text , sfC::Text_t& user_text) {
+    sf::Event event;
+    while (window.pollEvent (event)) {
+        if (event.type == sf::Event::KeyPressed) {
+            switch (event.key.code) {
+                case sf::Keyboard::Escape:
+                    text.clear ();
+                    return false;
+                    break;
+                case sf::Keyboard::BackSpace:
+                case sf::Keyboard::Delete:
+                    text.pop_back ();
+                    user_text.pop_back ();
+                    break;
+                default:
+                    break;
+                }
+        }
+
+        if (event.type == sf::Event::TextEntered) {
+            if ( IS_ASKII (event.text.unicode)) {
+                char cur_symbol = static_cast<char>(event.text.unicode);
+                text.push_back (cur_symbol);
+                user_text.push_back (cur_symbol);
+            }
+        }
+    }
+    return true;
+}
