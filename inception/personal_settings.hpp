@@ -107,7 +107,41 @@ void change_name() {
     personal.write(secret_path);
 }
 
+void change_data(screen::Background& window, int W, int H) {
+    sf::Font font;
+    std::string str, s1, s2, s3, s4, s5, s6;
+    User personal;
+    file_unlock(secret_path);
+    personal.read(secret_path);
+    s1 = "Name: " + personal.name + "\n";
+    s2 = "Information: " + personal.information + "\n";
+    s3 = "Nickname: " + personal.nickname + "\n";
+    s4 = personal.avatar;
+    screen::Point vert(300, 0);
+    screen::Icons ava(s4, vert);
+    str = s1 + s2 + s3;
+    sf::Text text(str, font);
+    text.setFont(font);
+    text.setCharacterSize(30);
+    text.setStyle(sf::Text::Bold);
+    text.setFillColor(sf::Color::Black);
+    font.loadFromFile(path_to_font);
+    while( window.is_open() ) {
+        window.draw_on_window(Background_test);
+        window.handler_button();
+        ava.draw_object(window.Get_window());
+        window.Get_window().draw(text);
+        window.display();
+    }
+    window.my_clear();
+}
 
+        
+
+
+
+
+/*
 void change_data(screen::Background &window, int W, int H) {
     //add func read in encoded_data
     window.draw_on_window(pers_settings_joke1, 0, 390);
@@ -168,7 +202,7 @@ void change_data(screen::Background &window, int W, int H) {
         // add in here: handler
     }
 }
-
+*/
 void check(int &H, int &W) {
     if (global_sign == 0) {
         H = 500;
@@ -177,6 +211,8 @@ void check(int &H, int &W) {
         W = 1240;
         H = 700;
     }
+    W = 1240;
+    H = 700;
 }
 
 void personal_settings() {
@@ -188,9 +224,9 @@ void personal_settings() {
         settings_window.handler_button();
         settings_window.draw_on_window(Background_test);
         settings_window.display();
-        if (global_sign == 0) {
+        if (global_have == 0) {
             wait_sign(settings_window, W, H);
-        } else if (global_sign == 1) {
+        } else if (global_have == 1) {
             change_data(settings_window, W, W);
         }
     }

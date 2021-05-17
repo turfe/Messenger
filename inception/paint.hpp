@@ -58,7 +58,7 @@ namespace screen {       // Everything required for screen operation is stored h
                                                                                 height(_height), width(_width) {}
 
         void draw_object(sf::RenderWindow &wind); //add func //added
-        bool click(sf::Vector2i position_mouse, Background &wind) const; //
+        bool click(sf::Vector2i position_mouse, Background &wind); //
         void display_text(sf::Event &event, sf::String player_input, sf::Text player_text);
         float Get_main_x();
 
@@ -83,7 +83,7 @@ namespace screen {       // Everything required for screen operation is stored h
             std::cout << "delete Button\n";
         }
     };                                                                                          //
-
+    
     class Background {                                                                          // Class used for operations with background
     private:                                                                                //
         sf::RenderWindow window;                                                          // Reference: https://www.sfml-dev.org/documentation/2.5.1/classsf_1_1RenderWindow.php
@@ -98,10 +98,11 @@ namespace screen {       // Everything required for screen operation is stored h
 
         Background(int height, std::string name, int width) : window(sf::VideoMode(height, width), name), kx(1), ky(1),
                                                               Begin_size(sf::Vector2u(height, width)) {}
-
+        void draw_on_window(sf::Text args, std::string str);
         void draw_on_window(const char path_to_image[]);                                    //
         void draw_on_window(const char path_to_image[], int x, int y);                      //
         void draw_on_window(sf::Color colour);
+        void draw_on_window(std::string str, sf::Font font);
 
         void draw_on_window(std::string text, int pixel_size, sf::Vector2f position);//
         void handler_button_start();                                                              //
@@ -170,7 +171,7 @@ namespace screen {       // Everything required for screen operation is stored h
         return p.y;
     }
 
-    bool Icons::click(sf::Vector2i position_mouse, screen::Background &window) const {
+    bool Icons::click(sf::Vector2i position_mouse, screen::Background &window) {
         //if you click on Icons -> return true -> action_one
         //else return false ->non_action
         float X = position_mouse.x;
@@ -231,6 +232,26 @@ namespace screen {       // Everything required for screen operation is stored h
         sf::RenderWindow &wind = window;
         return wind;
     }
+    
+    void Background::draw_on_window(std::string str, sf::Font font) {
+        str = "\t\t" + str;
+        sf::Text text(str, font);
+        text.setFont(font);
+        text.setCharacterSize(30);
+        text.setStyle(sf::Text::Bold);
+        text.setFillColor(sf::Color::Black);
+    }
+
+    void Background::draw_on_window(sf::Text text, std::string str) {
+        window.clear();
+        //sf::Text text(str, font);
+        //text.setFont(font);
+        //text.setCharacterSize(30);
+        //text.setStyle(sf::Text::Bold);
+        //text.setFillColor(sf::Color::Black);
+        window.draw(text);
+        window.display();
+    }
 
     void Background::draw_on_window(const char path_to_image[]) {
         sf::Texture image;
@@ -265,6 +286,7 @@ namespace screen {       // Everything required for screen operation is stored h
         title.setPosition(position);
         title.setStyle(sf::Text::Bold);
         window.draw(title);
+        //window.display();
     }
 
     void Background::my_clear() {

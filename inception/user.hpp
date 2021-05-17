@@ -24,8 +24,9 @@ class User {
         void write(std::string path);
         void change_password();
         void change_melody();
-    private:                                  //to keep this info in encode type
+        std::string get_password() const;
         std::string key = "9PyA[Z]LAq*yimdfUQ0.Fv9o1ykI6C;J(VNyLY7kf3UGj)z0_N7SEqZbZy%s86ROQoxFi3<fgh";
+    private:
         std::string password;
         std::string unique_nickname;
         std::string melody;
@@ -37,6 +38,10 @@ User::User(std::string s1, std::string s2, std::string s3, std::string s4, std::
 User::User() : 
     name(""), information(""), nickname(""), avatar(""), password(""), unique_nickname(""), melody("") {}
 
+std::string User::get_password() const {
+    return password;
+}
+
 void User::write(std::string path) {
     std::ofstream fout(path);
     std::cout << "PATH "<< path << "\n";
@@ -44,12 +49,12 @@ void User::write(std::string path) {
         std::cout << "ERROR write user.hpp\n";
     }
     std::cout << key << " KEYS\n";
-    std::string buffer;
-    fout << name << "\n" << information << "\n" <<  nickname << "\n" << avatar << "\n" << key << "\n";
-    encoder(buffer, key, password);
-    encoder(buffer, key, unique_nickname);
-    encoder(buffer, key, melody);
-    fout << key << "\n"<< password << "\n" << unique_nickname << "\n" << "\n" << melody << "\n";
+    std::string buffer1;
+    std::string buffer2;
+    fout << name << "\n" << information << "\n" <<  nickname << "\n" << avatar << std::endl;
+    encoder(password, key, buffer1);
+    encoder(password, key, buffer2);
+    fout << buffer1 << "\n" << melody << "\n" << melody << std::endl;;
     fout.close();
     file_lock(secret_path);
 }
@@ -68,7 +73,7 @@ void User::read(std::string path) {
     nickname = _nickname;
     std::getline(fin, _avatar);
     avatar = _avatar;
-    std::getline(fin, key);
+    //std::getline(fin, key);
     std::getline(fin, buffer);
     decoder(buffer, key, password);
     std::getline(fin, buffer);
@@ -76,7 +81,8 @@ void User::read(std::string path) {
     std::getline(fin, buffer);
     decoder(buffer, key, melody);
     fin.close();
-    unlink(secret_path);
+    std::cout << "CHECK READ\nname " << name << "\ninfo " << information << "nick " << nickname << "\nava " << avatar << " password = " << password << std::endl;
+    //unlink(secret_path);
 }
 
 void User::change_password() {
